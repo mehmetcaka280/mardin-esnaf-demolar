@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Örnek çalışmalar</title>
+<meta name="description" content="Mardin esnafı için hazırlanmış örnek siteler: QR menü, konak oteli, berber randevusu, yöresel ürün kataloğu, emlak ilanları.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9e7e1;--paper:#f6f5f1;--ink:#1b1c1a;--ink-2:#5d5f59;--rule:#d3d0c7}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:"Instrument Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:17px}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,36px)}
+
+.top{padding-top:clamp(40px,7vw,88px)}
+.top h1{font-stretch:78%;font-weight:700;font-size:clamp(46px,8.4vw,124px);line-height:.9;letter-spacing:-.03em;max-width:13ch}
+.top p{max-width:54ch;color:var(--ink-2);margin-top:22px;font-size:clamp(17px,1.5vw,20px)}
+
+/* five phones in a row, the first thing anyone sees */
+.phones{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.6vw,22px);margin-top:clamp(36px,5vw,60px);padding-bottom:clamp(48px,7vw,96px)}
+.phones a{display:block;text-decoration:none;animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.phones a:nth-child(2){animation-delay:.07s;margin-top:28px}.phones a:nth-child(3){animation-delay:.14s}.phones a:nth-child(4){animation-delay:.21s;margin-top:28px}.phones a:nth-child(5){animation-delay:.28s}
+@keyframes up{from{opacity:0;transform:translateY(30px)}}
+.phones .scr{border-radius:22px;overflow:hidden;border:6px solid var(--ink);background:var(--ink);aspect-ratio:400/820;box-shadow:0 24px 40px -24px rgba(0,0,0,.45);transition:transform .3s}
+.phones .scr img{width:100%;height:100%;object-fit:cover;object-position:top}
+.phones a:hover .scr{transform:translateY(-6px)}
+.phones span{display:block;margin-top:12px;font-weight:600;font-size:15px}
+@media(max-width:760px){
+  .phones{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;margin-inline:calc(-1*clamp(16px,3vw,36px));padding-inline:clamp(16px,3vw,36px);gap:12px}
+  .phones a{flex:0 0 46%;scroll-snap-align:start;margin-top:0!important}
+}
+
+/* one band per demo, each in its own colours */
+.demo{background:var(--c-bg);color:var(--c-ink)}
+.demo .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:center;padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px)}
+.demo:nth-of-type(even) .wrap{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.demo:nth-of-type(even) .txt{order:2}
+.demo h2{font-stretch:78%;font-weight:700;font-size:clamp(38px,4.6vw,64px);line-height:.95;letter-spacing:-.025em}
+.demo .who{margin-top:12px;font-weight:600;color:var(--c-acc)}
+.demo p{margin-top:16px;max-width:46ch;opacity:.86}
+.demo ul{list-style:none;margin-top:22px;border-top:1px solid var(--c-rule)}
+.demo li{padding:10px 0;border-bottom:1px solid var(--c-rule);font-size:15.5px}
+.demo .open{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:var(--c-acc);color:var(--c-on);text-decoration:none;font-weight:600;border-radius:999px;padding:14px 24px;transition:transform .15s}
+.demo .open:hover{transform:translateY(-2px)}
+.demo .open svg{width:18px;height:18px}
+.demo .shot{display:block;border-radius:10px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(0,0,0,.55),0 0 0 1px var(--c-rule)}
+.demo .shot img{width:100%;aspect-ratio:1440/900;object-fit:cover;object-position:top}
+.demo code{font:inherit;font-weight:600}
+@media(max-width:860px){.demo .wrap,.demo:nth-of-type(even) .wrap{grid-template-columns:minmax(0,1fr)}.demo:nth-of-type(even) .txt{order:0}}
+
+.d-menu{--c-bg:#22311f;--c-ink:#efe8d8;--c-acc:#e0a35b;--c-on:#22311f;--c-rule:rgba(239,232,216,.18)}
+.d-otel{--c-bg:#ece6da;--c-ink:#1d2433;--c-acc:#2c3f8c;--c-on:#fff;--c-rule:#d2c8b5}
+.d-randevu{--c-bg:#cfe5d8;--c-ink:#18211d;--c-acc:#c2352a;--c-on:#fff;--c-rule:#a9cbb8}
+.d-katalog{--c-bg:#e2d0ae;--c-ink:#2a2216;--c-acc:#27468a;--c-on:#fff;--c-rule:#c9b48d}
+.d-emlak{--c-bg:#161a1d;--c-ink:#eef0f1;--c-acc:#c8962b;--c-on:#161a1d;--c-rule:rgba(238,240,241,.16)}
+
+.how{background:var(--paper)}
+.how .wrap{padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
+.how h2{font-stretch:78%;font-weight:700;font-size:clamp(34px,4vw,54px);line-height:.98;letter-spacing:-.025em}
+.how ol{list-style:none;counter-reset:s}
+.how li{counter-increment:s;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid var(--rule)}
+.how li::before{content:counter(s);grid-row:span 2;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-weight:600;font-size:15px}
+.how li b{font-size:19px}
+.how li span{color:var(--ink-2)}
+@media(max-width:860px){.how .wrap{grid-template-columns:minmax(0,1fr)}}
+footer{background:var(--paper);border-top:1px solid var(--rule);color:var(--ink-2);font-size:13.5px}
+footer .wrap{padding-top:20px;padding-bottom:32px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+</svg>
+
+<header class="top wrap">
+  <h1>Mardin'de beş dükkân, beş ayrı site.</h1>
+  <p>Bunlar örnek çalışma, ama hepsi gerçekten çalışıyor. Telefonunuzdan açın, sipariş verin, randevu alın, oda seçin. Sizin işletmenizinki kendi adınız, fiyatlarınız ve fotoğraflarınızla hazırlanır.</p>
+  <nav class="phones" id="phones" aria-label="Örnekler"></nav>
+</header>
+
+<main id="demos"></main>
+
+<section class="how"><div class="wrap">
+  <h2>Nasıl çalışıyoruz?</h2>
+  <ol>
+    <li><b>Dükkânınıza geliriz</b><span>Ne sattığınızı, müşterinizin sizi nasıl bulduğunu dinleriz. Bu görüşme ücretsiz.</span></li>
+    <li><b>Siteyi hazırlarız</b><span>Fotoğrafları çekeriz, fiyatları gireriz. Menü, oda ya da ürün listesi 3 ile 7 gün içinde yayında olur.</span></li>
+    <li><b>Sonrasında da biz bakarız</b><span>Fiyat değişti, yeni ürün geldi, kampanya var: WhatsApp'tan yazmanız yeterli, aynı gün güncelleriz.</span></li>
+  </ol>
+</div></section>
+<footer><div class="wrap">Örneklerdeki işletme adları, fiyatlar ve kişiler hayalîdir. Fotoğraflar Wikimedia Commons ve Unsplash kaynaklıdır; her örneğin altında kaynakları yazılıdır.</div></footer>
+
+<script>
+const D = [
+ {k:"menu", u:"01-qr-menu/index.html", s:"01-qr-menu", t:"QR menü", n:"Taş Avlu", w:"Kafe, restoran, pastane, teras",
+  d:"Masadaki kodu okutan misafir menüyü Türkçe, İngilizce ya da Arapça görür. Fiyatı siz değiştirirsiniz, menü anında güncellenir; matbaaya bir daha gitmezsiniz.",
+  f:["Üç dil, Arapçada sağdan sola düzen","Yemek fotoğrafları ve günün önerisi","Masadan garson çağırma, masa numarasıyla","Google yorumuna tek dokunuşla yönlendirme"],
+  x:`Masa numarasıyla denemek için linkin sonuna <code>?masa=7</code> ekleyin.`},
+ {k:"otel", u:"02-otel/index.html", s:"02-otel", t:"Konak ve butik otel", n:"Revak Konak", w:"Butik otel, taş konak, pansiyon",
+  d:"Misafir tarihleri ve odayı seçer, gecelik ve toplam fiyatı görür, talebi doğrudan WhatsApp'ınıza gelir. Rezervasyon sitelerine giden yüzde 15 ile 20 komisyon cebinizde kalır.",
+  f:["Tarih seçimi ve otomatik fiyat hesabı","Odalar, galeri ve konum","Türkçe, İngilizce ve Arapça","Misafirin ilk mesajı hazır yazılmış gelir"]},
+ {k:"randevu", u:"03-randevu/index.html", s:"03-randevu", t:"Online randevu", n:"Usta Makas", w:"Berber, kuaför, güzellik salonu",
+  d:"Müşteri hizmeti, ustayı ve boş saati seçer; randevu yarım dakikada biter. Dolu saatler görünmez, cuma namazı arası kendiliğinden kapanır.",
+  f:["Hizmet, usta, gün ve saat seçimi","Telefonun takvimine ekleme","Dükkân sahibine günlük randevu paneli","Pazar gibi kapalı günler seçilemez"]},
+ {k:"katalog", u:"04-katalog/index.html", s:"04-katalog", t:"Ürün kataloğu ve sipariş", n:"Kadim Çarşı", w:"Sabuncu, kuruyemişçi, telkari ustası, yöresel ürün",
+  d:"Türkiye'nin her yerinden müşteri bıttım sabununu, telkari küpeyi sepete ekler, adresini yazar. Sipariş size WhatsApp'tan, eksiksiz yazılmış olarak gelir. Pazar yerine komisyon yok.",
+  f:["Kategoriler ve sepet","Ücretsiz kargoya kalan tutarı gösteren çubuk","Kapıda ödeme seçeneği","Hediye paketi ve toplu sipariş"]},
+ {k:"emlak", u:"05-emlak/index.html", s:"05-emlak", t:"Emlak ilanları", n:"Kızıltepe Emlak", w:"Emlak ofisi, müteahhit",
+  d:"Kendi ilan siteniz. Ziyaretçi ne aradığını bir cümle gibi yazar: satılık daire, 3+1, en fazla 3 milyon. Her ilanın WhatsApp'ta paylaşılabilen kendi linki olur.",
+  f:["Satılık, kiralık, mahalle, oda ve bütçe filtresi","Fotoğraf galerisi ve detay tablosu","Konut kredisi taksit hesabı","Favorilere ekleme"]}
+];
+document.getElementById("phones").innerHTML = D.map(x=>`<a href="${x.u}"><div class="scr"><img src="assets/shots/${x.s}-m.jpg" alt="${x.t} örneği, telefonda"></div><span>${x.t}</span></a>`).join("");
+document.getElementById("demos").innerHTML = D.map(x=>`<section class="demo d-${x.k}" id="${x.k}"><div class="wrap">
+  <div class="txt"><h2>${x.t}</h2><div class="who">${x.w} için</div><p>${x.d}</p>
+    <ul>${x.f.map(f=>`<li>${f}</li>`).join("")}</ul>${x.x?`<p>${x.x}</p>`:""}
+    <a class="open" href="${x.u}"><svg aria-hidden="true"><use href="#i-open"/></svg>${x.n} örneğini açın</a></div>
+  <a class="shot" href="${x.u}" tabindex="-1" aria-hidden="true"><img loading="lazy" src="assets/shots/${x.s}.jpg" alt=""></a>
+</div></section>`).join("");
+</script>
+</body>
+</html>

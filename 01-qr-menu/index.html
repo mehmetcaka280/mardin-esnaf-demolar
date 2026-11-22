@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taş Avlu, menü</title>
+<meta name="theme-color" content="#26331f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Albert+Sans:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   QR MENÜ DEMO
+   Müşteriye uyarlamak için yalnızca alttaki CONFIG ve MENU'yü değiştir.
+   Masa numarası QR linkinden gelir: index.html?masa=7
+   ===================================================================== */
+:root{
+  --leaf:#26331f;      /* menengiç yaprağı: koyu yüzey */
+  --leaf-2:#344530;
+  --pista:#e5e1cc;     /* menengiç içi: zemin */
+  --pista-2:#d8d3b8;
+  --copper:#9c4a22;    /* bakır tepsi: fiyat, vurgu */
+  --copper-l:#d88a55;
+  --ink:#1e2619;
+  --ink-2:#575d4b;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+body{font-family:'Albert Sans',system-ui,sans-serif;background:var(--pista);color:var(--ink);-webkit-tap-highlight-color:transparent;line-height:1.5}
+::selection{background:var(--copper);color:#fff}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:4px}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+.d{font-family:Gloock,Georgia,serif;font-weight:400}
+[dir=rtl] body{font-family:'Noto Naskh Arabic','Albert Sans',sans-serif}
+[dir=rtl] .d{font-family:'Noto Naskh Arabic',serif;font-weight:700}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+
+/* layout: phone column; on desktop a sticky photo panel on the left */
+.shell{min-height:100svh}
+.cover{position:relative;height:min(62svh,520px);color:#f3eedc;background:var(--leaf);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,28,16,.5) 0%,rgba(20,28,16,0) 28%,rgba(20,28,16,.15) 55%,rgba(20,28,16,.92) 100%)}
+.cover .in{position:relative;z-index:1;padding:20px 20px 24px}
+.cover h1{font-size:clamp(46px,13vw,76px);line-height:.92;letter-spacing:-.01em;animation:rise .9s var(--ease) both}
+[dir=rtl] .cover h1{line-height:1.3;font-size:clamp(38px,10vw,60px)}
+.cover p{margin-top:10px;font-size:15px;color:rgba(243,238,220,.85);max-width:34ch;animation:rise .9s .12s var(--ease) both}
+.table{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--copper);color:#fff;font-weight:600;font-size:14px;padding:6px 12px 6px 10px;border-radius:999px;animation:rise .9s .22s var(--ease) both}
+.table svg{width:16px;height:16px}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.top{position:absolute;z-index:2;top:0;inset-inline:0;display:flex;justify-content:flex-end;padding:14px 16px}
+.langs{display:flex;background:rgba(20,28,16,.55);border-radius:999px;padding:3px}
+.langs button{background:none;border:0;color:#f3eedc;font-size:13px;font-weight:600;padding:6px 11px;border-radius:999px}
+.langs button[aria-pressed=true]{background:#f3eedc;color:var(--leaf)}
+
+/* category tabs */
+.tabs{position:sticky;top:0;z-index:5;background:var(--pista);display:flex;gap:22px;overflow-x:auto;padding:0 20px;border-bottom:1px solid var(--pista-2);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:15px;padding:16px 0 14px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.tabs a[aria-current=true]{color:var(--ink);border-color:var(--copper)}
+
+main{padding:8px 20px 140px;max-width:640px}
+section{padding-top:34px}
+h2{font-size:34px;line-height:1.05;margin-bottom:6px}
+[dir=rtl] h2{font-size:28px;line-height:1.5}
+.cat-note{color:var(--ink-2);font-size:14px;margin-bottom:12px}
+
+/* a printed-menu line: name ...... price */
+.it{padding:16px 0;border-bottom:1px dashed #bdb79c}
+.it:last-child{border-bottom:0}
+.ln{display:flex;align-items:baseline;gap:10px}
+.ln .n{font-weight:600;font-size:17px}
+.ln .dots{flex:1;border-bottom:2px dotted #a9a387;transform:translateY(-5px);min-width:20px}
+.ln .p{font-weight:700;font-size:17px;color:var(--copper);white-space:nowrap}
+.it .ds{color:var(--ink-2);font-size:14.5px;margin-top:3px;max-width:46ch}
+.tag{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--leaf);background:var(--pista-2);padding:2px 9px;border-radius:999px}
+/* featured dish: the one place photos live */
+.feat{margin:12px 0 6px;background:var(--leaf);color:#f3eedc;border-radius:14px;overflow:hidden}
+.feat img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.feat .b{padding:16px 18px 18px}
+.feat .ln .p{color:var(--copper-l)}
+.feat .ln .dots{border-color:rgba(243,238,220,.35)}
+.feat .ds{color:rgba(243,238,220,.78)}
+.feat .tag{background:var(--copper);color:#fff}
+
+.note{margin-top:40px;font-size:13px;color:var(--ink-2)}
+.credit{margin-top:8px;font-size:11px;color:#8b8a74}
+
+/* action bar */
+.bar{position:fixed;inset:auto 0 0;z-index:9;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--pista);box-shadow:0 -1px 0 var(--pista-2)}
+.bar a,.bar button{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-size:14px;font-weight:600;padding:13px 6px;border-radius:10px;border:0;background:var(--pista-2);color:var(--ink);transition:transform .12s}
+.bar a:active,.bar button:active{transform:scale(.97)}
+.bar svg{width:18px;height:18px;flex:none}
+.bar .call{background:var(--leaf);color:#f3eedc;flex:1.4}
+.toast{position:fixed;left:50%;bottom:86px;transform:translate(-50%,10px);background:var(--ink);color:#f3eedc;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;transition:.25s var(--ease);pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(min-width:960px){
+  .shell{display:grid;grid-template-columns:minmax(380px,44vw) 1fr}
+  .cover{position:sticky;top:0;height:100svh}
+  .cover .in{padding:40px}
+  .cover h1{font-size:clamp(64px,6vw,96px)}
+  main{padding:8px 56px 140px}
+  .tabs{padding:0 56px}
+  .bar{inset-inline-start:44vw;justify-content:flex-start;padding-inline:56px}
+  .bar a,.bar button,.bar .call{flex:0 1 220px}
+  .toast{left:72vw}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9a13 13 0 0 1 18 0M6 12.5a8.5 8.5 0 0 1 12 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h16M6 17a6 6 0 0 1 12 0M12 8V6M10 20h4"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h18M6 8v11M18 8v11M8 13h8"/></symbol>
+</svg>
+
+<div class="shell">
+  <header class="cover">
+    <img src="../assets/img/photo-f151677849-960.jpg" srcset="../assets/img/photo-f151677849-500.jpg 500w, ../assets/img/photo-f151677849-960.jpg 960w" sizes="(min-width:960px) 44vw, 100vw" alt="" fetchpriority="high">
+    <div class="top"><div class="langs" role="group" aria-label="Dil"><button data-l="tr">TR</button><button data-l="en">EN</button><button data-l="ar" lang="ar">عربي</button></div></div>
+    <div class="in">
+      <h1 class="d" id="bname"></h1>
+      <p id="bsub"></p>
+      <div class="table tnum" id="table" hidden><svg><use href="#i-table"/></svg><span></span></div>
+    </div>
+  </header>
+  <div>
+    <nav class="tabs" id="tabs" aria-label="Kategoriler"></nav>
+    <main id="menu"></main>
+  </div>
+</div>
+
+<div class="bar">
+  <button id="wifi"><svg><use href="#i-wifi"/></svg><span></span></button>
+  <a id="review" target="_blank" rel="noopener"><svg><use href="#i-star"/></svg><span></span></a>
+  <a id="call" class="call" target="_blank" rel="noopener"><svg><use href="#i-bell"/></svg><span></span></a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===================== CONFIG (müşteriye göre değiştir) ===================== */
+const CONFIG = {
+  name:     {tr:"Taş Avlu", en:"Taş Avlu", ar:"طاش أفلو"},
+  subtitle: {tr:"Eski Mardin'de ovaya bakan teras. Mutfak 09:00'dan 23:00'e kadar açık.",
+             en:"A terrace over the plain in Old Mardin. Kitchen open 09:00 to 23:00.",
+             ar:"تراس يطل على السهل في ماردين القديمة. المطبخ مفتوح من ٠٩:٠٠ حتى ٢٣:٠٠."},
+  whatsapp: "905000000000",                 // işletmenin WhatsApp numarası
+  reviewUrl:"https://www.google.com/maps",  // Google yorum linki
+  wifiName: "TasAvlu_Misafir",
+  wifi:     "TasAvlu2026",
+  currency: "₺"
+};
+const UI = {
+  tr:{wifi:"Wi-Fi",review:"Yorum yap",call:"Garson çağır",table:"Masa {n}",copied:"Şifre kopyalandı: {p} (ağ: {w})",
+      waCall:"Merhaba, {t} garson rica ediyorum.",waNoTable:"masaya",note:"Fiyatlara KDV dahildir. Alerjiniz varsa garsona söyleyin.",credit:"Fotoğraflar: Wikimedia Commons"},
+  en:{wifi:"Wi-Fi",review:"Review us",call:"Call waiter",table:"Table {n}",copied:"Password copied: {p} (network: {w})",
+      waCall:"Hello, could we have a waiter at {t}, please?",waNoTable:"our table",note:"Prices include VAT. Tell your waiter about any allergies.",credit:"Photos: Wikimedia Commons"},
+  ar:{wifi:"واي فاي",review:"قيّمنا",call:"نادِ النادل",table:"طاولة {n}",copied:"تم نسخ كلمة المرور: {p} (الشبكة: {w})",
+      waCall:"مرحباً، نرجو إرسال نادل إلى {t}.",waNoTable:"طاولتنا",note:"الأسعار تشمل الضريبة. أخبر النادل إن كانت لديك حساسية.",credit:"الصور: ويكيميديا كومنز"}
+};
+/* ===================== MENU (fiyatlar örnektir) =====================
+   img: yalnızca öne çıkan yemeklere fotoğraf ver (f: true). */
+const IMG = f => `../assets/img/photo-${f}.jpg`;
+const MENU = [
+ {id:"kahvalti", t:{tr:"Kahvaltı",en:"Breakfast",ar:"الفطور"},
+  note:{tr:"Hafta içi 09:00–12:00, hafta sonu 14:00'e kadar.",en:"Weekdays 09:00–12:00, weekends until 14:00.",ar:"أيام الأسبوع ٠٩:٠٠–١٢:٠٠، وحتى ١٤:٠٠ في العطلة."},
+  items:[
+  {p:850, f:true, img:IMG("f84820174-960"), b:{tr:"2 kişilik",en:"Serves 2",ar:"لشخصين"},
+   n:{tr:"Mardin serpme kahvaltı",en:"Mardin breakfast spread",ar:"فطور ماردين المشكّل"},
+   d:{tr:"Örgü peyniri, zahter, menengiç ezmesi, dut pekmezi, tahin, köy yumurtası ve sıcak Süryani çöreği.",
+      en:"Braided cheese, za'atar, terebinth spread, mulberry molasses, tahini, village eggs and warm Syriac bread.",
+      ar:"جبنة مجدولة، زعتر، معجون البطم، دبس التوت، طحينة، بيض بلدي وكعك سرياني ساخن."}},
+  {p:220, n:{tr:"Sucuklu yumurta",en:"Eggs with sucuk",ar:"بيض بالسجق"},
+   d:{tr:"Bakır sahanda, tereyağında.",en:"In a copper pan, cooked in butter.",ar:"في مقلاة نحاسية بالزبدة."}},
+  {p:180, n:{tr:"Menemen",en:"Menemen",ar:"منمن"},
+   d:{tr:"Domates, biber, köy yumurtası.",en:"Tomato, pepper, village eggs.",ar:"طماطم، فلفل، بيض بلدي."}}
+ ]},
+ {id:"ara", t:{tr:"Ara sıcaklar",en:"Hot starters",ar:"مقبلات ساخنة"}, items:[
+  {p:280, b:{tr:"Mardin'e özgü",en:"Mardin speciality",ar:"من ماردين"},
+   n:{tr:"İkbebet",en:"Ikbebet",ar:"كبة (إكبيبت)"},
+   d:{tr:"Bulgur kabuk içinde cevizli kıyma, 4 adet.",en:"Bulgur shells filled with minced lamb and walnuts, 4 pieces.",ar:"قشرة برغل محشوة باللحم والجوز، ٤ قطع."}},
+  {p:240, n:{tr:"Sembusek",en:"Sembusek",ar:"سمبوسك"},
+   d:{tr:"Kıymalı Mardin pidesi, taş fırında.",en:"Mardin flatbread with minced meat, from the stone oven.",ar:"فطيرة ماردينية باللحم من فرن الحجر."}},
+  {p:160, n:{tr:"Mercimek çorbası",en:"Lentil soup",ar:"شوربة العدس"},
+   d:{tr:"Tereyağlı pul biberle.",en:"With butter and chilli flakes.",ar:"بالزبدة والفلفل الأحمر."}}
+ ]},
+ {id:"ana", t:{tr:"Ana yemekler",en:"Mains",ar:"الأطباق الرئيسية"},
+  note:{tr:"Kaburga dolmasını sabahtan ayırtmanızı öneririz, günde 12 porsiyon çıkıyor.",en:"We suggest reserving the stuffed ribs in the morning; we make 12 portions a day.",ar:"ننصح بحجز الضلوع المحشية صباحاً، نحضّر ١٢ حصة يومياً فقط."},
+  items:[
+  {p:950, f:true, img:IMG("f65977825-960"), b:{tr:"Şefin önerisi",en:"Chef's choice",ar:"اختيار الشيف"},
+   n:{tr:"Kaburga dolması",en:"Stuffed lamb ribs",ar:"ضلوع خروف محشية"},
+   d:{tr:"Baharatlı pilavla doldurulmuş kuzu kaburga, taş fırında 4 saat.",en:"Lamb ribs stuffed with spiced rice, four hours in the stone oven.",ar:"ضلوع خروف محشوة بالأرز المتبل، أربع ساعات في فرن الحجر."}},
+  {p:620, n:{tr:"Mardin kebabı",en:"Mardin kebab",ar:"كباب ماردين"},
+   d:{tr:"Kuzu kıyma, közlenmiş domates ve biber, lavaş.",en:"Minced lamb, charred tomato and pepper, lavash.",ar:"لحم خروف مفروم، طماطم وفلفل مشوي، خبز لواش."}},
+  {p:680, n:{tr:"Alluciye",en:"Alluciye",ar:"علوجية"},
+   d:{tr:"Kuzu eti, kuru erik ve kayısıyla. Tatlı ekşi.",en:"Lamb with dried plums and apricots. Sweet and sour.",ar:"لحم خروف بالخوخ والمشمش المجفف. حلو وحامض."}},
+  {p:540, n:{tr:"Firik pilavı ve kuzu",en:"Freekeh with lamb",ar:"فريكة باللحم"},
+   d:{tr:"Közlenmiş buğday, yavaş pişmiş kuzu incik.",en:"Smoked green wheat with slow-cooked lamb shank.",ar:"قمح أخضر مدخّن مع موزات خروف مطهوة ببطء."}}
+ ]},
+ {id:"tatli", t:{tr:"Tatlılar",en:"Desserts",ar:"الحلويات"}, items:[
+  {p:200, n:{tr:"Kahiye",en:"Kahiye",ar:"كاهية"},
+   d:{tr:"Tereyağı ve pekmezle yapılan Mardin tatlısı.",en:"A Mardin sweet of butter and molasses.",ar:"حلوى ماردينية بالزبدة والدبس."}},
+  {p:180, n:{tr:"Harire",en:"Harire",ar:"حريرة"},
+   d:{tr:"Üzüm pekmezli muhallebi, cevizle.",en:"Grape-molasses pudding with walnuts.",ar:"مهلبية بدبس العنب والجوز."}}
+ ]},
+ {id:"icecek", t:{tr:"İçecekler",en:"Drinks",ar:"المشروبات"}, items:[
+  {p:120, b:{tr:"Mardin'e özgü",en:"Mardin speciality",ar:"من ماردين"},
+   n:{tr:"Mırra",en:"Mırra",ar:"قهوة مرّة"},
+   d:{tr:"Defalarca kaynatılmış acı kahve, kulpsuz fincanda.",en:"Bitter coffee boiled again and again, in a handleless cup.",ar:"قهوة مرّة مغلية مرات عديدة في فنجان بلا عروة."}},
+  {p:110, n:{tr:"Menengiç kahvesi",en:"Terebinth coffee",ar:"قهوة البطم"},
+   d:{tr:"Kafeinsiz, sütlü.",en:"Caffeine-free, made with milk.",ar:"خالية من الكافيين، بالحليب."}},
+  {p:110, n:{tr:"Dibek kahvesi",en:"Dibek coffee",ar:"قهوة الدبك"},
+   d:{tr:"Taş havanda dövülmüş.",en:"Pounded in a stone mortar.",ar:"مدقوقة في هاون حجري."}},
+  {p:40, n:{tr:"Çay",en:"Tea",ar:"شاي"}, d:{tr:"İnce belli bardakta.",en:"In a tulip glass.",ar:"في كأس تركي."}}
+ ]}
+];
+/* ===================== kod (dokunmana gerek yok) ===================== */
+const q = new URLSearchParams(location.search);
+const TABLE = q.get("masa") || q.get("table");
+let L = q.get("lang") || (()=>{try{return localStorage.getItem("menuLang")}catch(e){return null}})() || "tr";
+if(!UI[L]) L = "tr";
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const fmt = p => p.toLocaleString(L==="ar"?"ar-EG":"tr-TR") + " " + CONFIG.currency;
+const fill = (s,o) => s.replace(/\{(\w)\}/g,(_,k)=>o[k]);
+
+function item(it){
+  const line = `<div class="ln"><span class="n">${it.n[L]}</span><span class="dots" aria-hidden="true"></span><span class="p tnum">${fmt(it.p)}</span></div>
+    ${it.d?`<p class="ds">${it.d[L]}</p>`:""}${it.b?`<span class="tag">${it.b[L]}</span>`:""}`;
+  return it.f ? `<div class="feat"><img loading="lazy" src="${it.img}" alt="${it.n[L]}"><div class="b">${line}</div></div>`
+              : `<div class="it">${line}</div>`;
+}
+function render(){
+  const u = UI[L];
+  document.documentElement.lang = L; document.documentElement.dir = L==="ar"?"rtl":"ltr";
+  document.title = `${CONFIG.name[L]}, ${L==="tr"?"menü":L==="en"?"menu":"القائمة"}`;
+  $("#bname").textContent = CONFIG.name[L]; $("#bsub").textContent = CONFIG.subtitle[L];
+  $$(".langs button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.l===L));
+  if(TABLE){ $("#table").hidden = false; $("#table span").textContent = fill(u.table,{n:TABLE}); }
+  $("#tabs").innerHTML = MENU.map((c,i)=>`<a href="#${c.id}" aria-current="${!i}">${c.t[L]}</a>`).join("");
+  $("#menu").innerHTML = MENU.map(c=>`<section id="${c.id}"><h2 class="d">${c.t[L]}</h2>${c.note?`<p class="cat-note">${c.note[L]}</p>`:""}${c.items.map(item).join("")}</section>`).join("")
+    + `<p class="note">${u.note}</p><p class="credit">${u.credit}: Hamdigumus (CC0), Jwslubbock (CC BY-SA 3.0), E4024 (CC BY-SA 4.0).</p>`;
+  $("#wifi span").textContent = u.wifi; $("#review span").textContent = u.review; $("#call span").textContent = u.call;
+  $("#review").href = CONFIG.reviewUrl;
+  $("#call").href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(fill(u.waCall,{t: TABLE ? fill(u.table,{n:TABLE}).toLowerCase() : u.waNoTable}))}`;
+  spy();
+}
+$$(".langs button").forEach(b=>b.onclick=()=>{ L=b.dataset.l; try{localStorage.setItem("menuLang",L)}catch(e){} render(); });
+let tt;
+$("#wifi").onclick = ()=>{
+  try{navigator.clipboard.writeText(CONFIG.wifi)}catch(e){}
+  const t=$("#toast"); t.textContent=fill(UI[L].copied,{p:CONFIG.wifi,w:CONFIG.wifiName}); t.classList.add("show");
+  clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),2600);
+};
+let obs;
+function spy(){
+  obs && obs.disconnect();
+  obs = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    $$(".tabs a").forEach(a=>{
+      const on = a.getAttribute("href")==="#"+e.target.id; a.setAttribute("aria-current", on);
+      if(on) a.scrollIntoView({inline:"center",block:"nearest"});
+    });
+  }),{rootMargin:"-30% 0px -65% 0px"});
+  $$("main section").forEach(s=>obs.observe(s));
+}
+render();
+</script>
+</body>
+</html>

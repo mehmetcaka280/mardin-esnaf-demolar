@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revak Konak, Eski Mardin</title>
+<meta name="description" content="Eski Mardin'de 1878 yapımı taş konakta 8 oda. Ovaya bakan teras, ev yapımı Mardin kahvaltısı, doğrudan rezervasyonda %10 indirim.">
+<meta name="theme-color" content="#1d3a7a">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=Reem+Kufi:wght@500;600&family=Noto+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   OTEL / KONAK DEMO
+   Müşteriye uyarlamak için: alttaki CONFIG, ROOMS, T (çeviriler).
+   Fotoğraflar ../assets/img altında; müşterinin kendi fotoğraflarıyla değiştir.
+   ===================================================================== */
+:root{
+  --lime:#ede4d3;      /* kireçtaşı, zemin */
+  --lime-2:#e2d5bd;    /* gölgedeki taş */
+  --paper:#f7f2e8;     /* açık yüzey */
+  --honey:#a8732f;     /* güneşte Mardin taşı */
+  --sky:#1d3a7a;       /* Mardin göğü, marka rengi */
+  --sky-2:#142a5a;
+  --basalt:#28231d;    /* metin */
+  --basalt-2:#5b5145;
+  --rule:#cdbd9f;
+  --ok:#2f6b3f;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:Figtree,system-ui,sans-serif;background:var(--lime);color:var(--basalt);line-height:1.6;font-size:17px}
+::selection{background:var(--sky);color:var(--paper)}
+img{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.2em}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.d{font-family:Marcellus,Georgia,serif;font-weight:400;letter-spacing:-.005em}
+[dir=rtl] body{font-family:'Noto Sans Arabic',Figtree,sans-serif}
+[dir=rtl] .d{font-family:'Reem Kufi','Noto Sans Arabic',sans-serif;font-weight:600;letter-spacing:0}
+h2.d{font-size:clamp(32px,4.4vw,56px);line-height:1.05;max-width:16ch}
+[dir=rtl] h2.d{line-height:1.35}
+.lede{color:var(--basalt-2);max-width:52ch}
+section{padding:clamp(72px,10vw,140px) 0}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+
+/* buttons: one family */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;text-decoration:none;
+  font-weight:600;font-size:16px;padding:15px 26px;border-radius:6px;transition:background .25s var(--ease),transform .15s var(--ease),color .25s}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-sky{background:var(--sky);color:var(--paper)}.btn-sky:hover{background:var(--sky-2)}
+.btn-honey{background:var(--honey);color:#fff}.btn-honey:hover{background:#8e5f24}
+.btn-line{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}.btn-line:hover{background:rgba(255,255,255,.12)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:50;color:#fff;transition:background .35s,color .35s,box-shadow .35s}
+nav.solid{background:var(--paper);color:var(--basalt);box-shadow:0 1px 0 var(--rule)}
+nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.name{font-family:Marcellus,serif;font-size:23px;text-decoration:none;white-space:nowrap}
+[dir=rtl] .name{font-family:'Reem Kufi',sans-serif}
+.links{display:flex;gap:26px;font-size:15px;margin-inline-start:auto}
+.links a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s var(--ease)}
+.links a:hover{background-size:100% 1px}
+.langs{display:flex;border-radius:6px;box-shadow:inset 0 0 0 1px currentColor;overflow:hidden}
+.langs button{background:none;border:0;font-size:13px;padding:6px 10px;cursor:pointer;opacity:.75}
+.langs button[aria-pressed=true]{background:currentColor;opacity:1}
+.langs button[aria-pressed=true] span{color:var(--sky)}
+nav.solid .langs button[aria-pressed=true] span{color:var(--paper)}
+nav .btn{padding:10px 18px;font-size:15px}
+@media(max-width:920px){.links{display:none}.langs{margin-inline-start:auto}nav .btn{display:none}}
+
+/* HERO */
+.hero{position:relative;min-height:min(100svh,980px);display:grid;grid-template-rows:1fr auto;color:#fff;overflow:hidden;background:var(--sky-2)}
+.hero picture,.hero>img{position:absolute;inset:0}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,24,48,.42) 0%,rgba(15,24,48,0) 30%,rgba(15,24,48,0) 45%,rgba(15,24,48,.78) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero-copy{align-self:end;padding-bottom:40px}
+.hero h1{font-size:clamp(44px,8.2vw,118px);line-height:.95;max-width:11ch;letter-spacing:-.02em}
+[dir=rtl] .hero h1{line-height:1.25;letter-spacing:0;font-size:clamp(38px,6.4vw,88px)}
+.hero p{font-size:clamp(17px,1.6vw,20px);max-width:44ch;margin:22px 0 0;color:rgba(255,255,255,.9)}
+.hero-copy .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-enter{animation:rise 1.1s var(--ease) both}
+.h-enter.d2{animation-delay:.15s}.h-enter.d3{animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+/* ledge: booking strip carved into the hero foot */
+.ledge{position:relative;z-index:2;background:var(--paper);color:var(--basalt)}
+.ledge form{display:grid;grid-template-columns:1.2fr 1.2fr 1fr 1.4fr auto;align-items:stretch}
+.ledge .f{padding:16px 22px;border-inline-end:1px solid var(--rule);display:flex;flex-direction:column;justify-content:center;min-width:0}
+.ledge label{font-size:13px;color:var(--basalt-2)}
+.ledge input,.ledge select{border:0;background:none;font-size:17px;font-weight:600;padding:2px 0;width:100%;cursor:pointer;min-width:0}
+.ledge .btn{border-radius:0;padding:0 34px}
+.ledge .note{grid-column:1/-1;font-size:14px;padding:9px 22px;background:var(--lime-2);color:var(--basalt-2);border-top:1px solid var(--rule)}
+.ledge .note b{color:var(--ok)}
+@media(max-width:900px){.ledge form{grid-template-columns:1fr 1fr}.ledge .f:nth-child(2n){border-inline-end:0}.ledge .f{border-bottom:1px solid var(--rule)}
+  .ledge .btn{grid-column:1/-1;padding:16px}}
+
+/* ROOMS: the arcade */
+.rooms-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+.arcade{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px)}
+.room{display:flex;flex-direction:column}
+.arch{aspect-ratio:3/4.3;border-radius:999px 999px 0 0;overflow:hidden;background:var(--lime-2);position:relative;cursor:zoom-in}
+.arch img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.room:hover .arch img{transform:scale(1.035)}
+.room .base{border-top:3px solid var(--basalt);padding-top:16px;margin-top:0;display:flex;flex-direction:column;flex:1}
+.room h3{font-size:clamp(22px,2vw,27px);line-height:1.15}
+.room .spec{font-size:14px;color:var(--basalt-2);margin:6px 0 12px;display:flex;gap:14px;flex-wrap:wrap}
+.room .spec span{display:inline-flex;align-items:center;gap:6px}
+.room .spec svg{width:16px;height:16px}
+.room p{font-size:15px;color:var(--basalt-2);flex:1}
+.price{margin:18px 0 14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price s{color:var(--basalt-2);font-size:15px;text-decoration-thickness:1px}
+.price b{font-size:26px;font-weight:600}
+.price small{font-size:14px;color:var(--basalt-2)}
+.room .flag{font-size:13px;color:var(--ok);font-weight:600;margin-top:-8px;margin-bottom:14px}
+.room .btn{width:100%}
+@media(max-width:1020px){.arcade{grid-template-columns:1fr 1fr;row-gap:56px}}
+@media(max-width:560px){.arcade{grid-template-columns:1fr}.arch{aspect-ratio:4/4.4}.rooms-head{grid-template-columns:1fr;gap:16px}}
+
+/* A DAY: real sequence of times */
+.day{background:var(--sky);color:var(--paper)}
+.day .lede{color:rgba(247,242,232,.78)}
+.day-list{margin-top:64px;display:grid;gap:0}
+.moment{display:grid;grid-template-columns:140px 1fr 1.25fr;gap:clamp(20px,4vw,56px);align-items:center;padding:34px 0;border-top:1px solid rgba(247,242,232,.22)}
+.moment time{font-family:Marcellus,serif;font-size:clamp(34px,3.6vw,48px);color:#e8c48a;line-height:1}
+.moment h3{font-size:clamp(24px,2.4vw,32px);line-height:1.15;margin-bottom:8px}
+.moment p{color:rgba(247,242,232,.8);max-width:42ch}
+.moment figure{aspect-ratio:16/9;overflow:hidden;border-radius:4px}
+.moment img{width:100%;height:100%;object-fit:cover}
+@media(max-width:820px){.moment{grid-template-columns:1fr;gap:14px}.moment figure{order:3}}
+
+/* HOUSE */
+.house{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,96px);align-items:center}
+.door{aspect-ratio:4/5.4;border-radius:999px 999px 0 0;overflow:hidden}
+.door img{width:100%;height:100%;object-fit:cover}
+.facts{margin-top:36px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 32px}
+.facts div{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--basalt-2)}
+.facts b{display:block;color:var(--basalt);font-weight:600;font-size:16px}
+.facts svg{width:26px;height:26px;flex:none;color:var(--honey);margin-top:2px}
+@media(max-width:820px){.house{grid-template-columns:1fr}.door{max-width:420px;aspect-ratio:4/4.6}}
+@media(max-width:480px){.facts{grid-template-columns:1fr}}
+
+/* GALLERY */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(120px,14vw,190px);gap:10px;margin-top:48px}
+.gal button{border:0;padding:0;overflow:hidden;background:var(--lime-2);cursor:zoom-in;border-radius:3px}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.gal button:hover img{transform:scale(1.03)}
+.gal button:nth-child(1){grid-column:span 7;grid-row:span 2}
+.gal button:nth-child(2){grid-column:span 5;grid-row:span 1}
+.gal button:nth-child(3){grid-column:span 5;grid-row:span 1}
+.gal button:nth-child(4){grid-column:span 4;grid-row:span 2}
+.gal button:nth-child(5){grid-column:span 4;grid-row:span 2}
+.gal button:nth-child(6){grid-column:span 4;grid-row:span 2}
+@media(max-width:700px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.gal button:nth-child(n){grid-column:span 1;grid-row:span 1}.gal button:nth-child(1),.gal button:nth-child(6){grid-column:span 2;grid-row:span 2}}
+
+/* REVIEWS */
+.reviews{background:var(--paper)}
+.rv{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,6vw,90px);align-items:start}
+.big q{font-family:Marcellus,serif;font-size:clamp(26px,3vw,40px);line-height:1.25;quotes:"“" "”";display:block}
+[dir=rtl] .big q{font-family:'Noto Sans Arabic',sans-serif;font-weight:600;line-height:1.7;font-size:clamp(22px,2.4vw,30px)}
+.who{margin-top:22px;font-size:15px;color:var(--basalt-2)}
+.who b{color:var(--basalt)}
+.score{display:flex;align-items:baseline;gap:12px;margin-bottom:34px}
+.score b{font-family:Marcellus,serif;font-size:64px;line-height:1;color:var(--sky)}
+.score span{font-size:15px;color:var(--basalt-2);max-width:20ch}
+.small{border-top:1px solid var(--rule);padding:22px 0}
+.small p{font-size:16px}
+.small .who{margin-top:8px;font-size:14px}
+@media(max-width:820px){.rv{grid-template-columns:1fr}}
+
+/* LOCATION */
+.loc{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:start}
+.walk{margin-top:34px;border-top:1px solid var(--rule)}
+.walk li{list-style:none;display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.walk li span:last-child{color:var(--basalt-2);white-space:nowrap}
+.map{border:0;width:100%;height:100%;min-height:440px;border-radius:4px;filter:saturate(.75) contrast(1.02)}
+.addr{margin-top:22px;color:var(--basalt-2);font-size:15px}
+@media(max-width:820px){.loc{grid-template-columns:1fr}.map{min-height:320px}}
+
+/* FAQ */
+.faq{max-width:860px}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:20px 0;font-weight:600;font-size:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{width:20px;height:20px;flex:none;transition:transform .3s var(--ease);color:var(--honey)}
+.faq details[open] summary svg{transform:rotate(45deg)}
+.faq details p{padding:0 0 22px;color:var(--basalt-2);max-width:62ch}
+
+/* FOOTER */
+footer{background:var(--sky-2);color:rgba(247,242,232,.85);padding:72px 0 28px;font-size:15px}
+footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+footer .name{font-size:34px;color:var(--paper);display:block;margin-bottom:12px}
+footer a{color:var(--paper)}
+footer .credit{margin-top:56px;padding-top:18px;border-top:1px solid rgba(247,242,232,.16);font-size:12px;color:rgba(247,242,232,.55)}
+footer .credit a{color:inherit}
+@media(max-width:760px){footer .top{grid-template-columns:1fr}}
+
+/* MOBILE BAR */
+.mbar{position:fixed;inset:auto 0 0;z-index:40;background:var(--paper);box-shadow:0 -1px 0 var(--rule);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px}
+@media(max-width:760px){.mbar{display:flex}.mbar .btn{flex:1;padding:13px}body{padding-bottom:72px}}
+
+/* SHEET (booking) */
+dialog{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0}
+dialog::backdrop{background:rgba(20,26,40,.55);backdrop-filter:blur(3px)}
+.sheet{background:var(--paper);width:min(560px,100%);margin:auto;max-height:100%;overflow:auto;padding:30px;border-radius:8px;position:relative;
+  animation:sheet .5s var(--ease)}
+dialog[open]{display:flex;align-items:center;padding:16px}
+@keyframes sheet{from{opacity:0;transform:translateY(20px)}}
+@media(max-width:560px){dialog[open]{align-items:flex-end;padding:0}.sheet{border-radius:14px 14px 0 0;padding:24px 18px}}
+.sheet h2{font-size:30px;margin-bottom:6px;padding-inline-end:40px}
+.sheet .sub{color:var(--basalt-2);font-size:15px}
+.x{position:absolute;top:16px;inset-inline-end:16px;width:40px;height:40px;border:0;border-radius:50%;background:var(--lime);cursor:pointer;display:grid;place-items:center}
+.x svg{width:18px;height:18px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.fld label{display:block;font-size:14px;color:var(--basalt-2);margin-bottom:6px}
+.fld input,.fld select{width:100%;padding:12px 13px;border:1px solid var(--rule);border-radius:6px;background:#fff;font-size:16px}
+.fld input:focus,.fld select:focus{outline:2px solid var(--sky);outline-offset:0;border-color:transparent}
+.fld.full{grid-column:1/-1}
+.sum{border-top:1px solid var(--rule);font-size:15px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.sum .save{color:var(--ok);font-weight:600}
+.sum .tot{font-size:20px;font-weight:600;border-bottom:0}
+.err{color:#a3261b;font-size:14px;min-height:22px;margin:8px 0}
+.sheet .btn{width:100%}
+.sheet .fine{text-align:center;font-size:13px;color:var(--basalt-2);margin-top:12px}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(12,16,28,.94);display:none;align-items:center;justify-content:center;z-index:120;padding:20px;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:3px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9Z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-4l2-5h12l2 5v4M3 16h18v3H3zM7 19v1.5M17 19v1.5"/><circle cx="7.5" cy="13.5" r=".8" fill="currentColor"/><circle cx="16.5" cy="13.5" r=".8" fill="currentColor"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9a13 13 0 0 1 18 0M6 12.5a8.5 8.5 0 0 1 12 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2V6ZM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-child" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h14a4 4 0 0 0 0-8H3v8ZM3 12v6M17 12v6M3 15h14"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+</svg>
+
+<nav id="nav" aria-label="Ana menü"><div class="wrap">
+  <a href="#" class="name" data-c="name"></a>
+  <div class="links"><a href="#odalar" data-t="nRooms"></a><a href="#gun" data-t="nDay"></a><a href="#galeri" data-t="nGallery"></a><a href="#konum" data-t="nLoc"></a></div>
+  <div class="langs" role="group" aria-label="Dil"><button data-l="tr"><span>TR</span></button><button data-l="en"><span>EN</span></button><button data-l="ar" lang="ar"><span>ع</span></button></div>
+  <button class="btn btn-honey" data-open data-t="book"></button>
+</div></nav>
+
+<header class="hero">
+  <img src="../assets/img/photo-f35438046-960.jpg" srcset="../assets/img/photo-f35438046-500.jpg 500w, ../assets/img/photo-f35438046-960.jpg 960w" sizes="100vw" alt="" fetchpriority="high" id="heroImg">
+  <div class="wrap hero-copy">
+    <h1 class="d h-enter" data-t="heroTitle"></h1>
+    <p class="h-enter d2" data-t="heroText"></p>
+    <div class="row h-enter d3"><a href="#odalar" class="btn btn-honey" data-t="seeRooms"></a><a class="btn btn-line" id="heroWa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-t="askWa"></span></a></div>
+  </div>
+  <div class="ledge"><div class="wrap" style="padding:0"><form id="bookbar">
+    <div class="f"><label for="bIn" data-t="in"></label><input type="date" id="bIn" required></div>
+    <div class="f"><label for="bOut" data-t="out"></label><input type="date" id="bOut" required></div>
+    <div class="f"><label for="bG" data-t="guests"></label><select id="bG"></select></div>
+    <div class="f"><label for="bR" data-t="room"></label><select id="bR"></select></div>
+    <button class="btn btn-sky" data-t="check"></button>
+    <div class="note" id="ledgeNote"></div>
+  </form></div></div>
+</header>
+
+<main>
+<section id="odalar"><div class="wrap">
+  <div class="rooms-head"><h2 class="d" data-t="roomsTitle"></h2><p class="lede" data-t="roomsText"></p></div>
+  <div class="arcade" id="arcade"></div>
+</div></section>
+
+<section class="day" id="gun"><div class="wrap">
+  <h2 class="d" data-t="dayTitle"></h2>
+  <p class="lede" style="margin-top:18px" data-t="dayText"></p>
+  <div class="day-list" id="dayList"></div>
+</div></section>
+
+<section><div class="wrap house">
+  <div class="door"><img loading="lazy" src="../assets/img/photo-f178200792-500.jpg" alt="" data-alt="doorAlt"></div>
+  <div>
+    <h2 class="d" data-t="houseTitle"></h2>
+    <p class="lede" style="margin-top:20px" data-t="houseText"></p>
+    <div class="facts" id="facts"></div>
+  </div>
+</div></section>
+
+<section id="galeri" style="padding-top:0"><div class="wrap">
+  <h2 class="d" data-t="galTitle"></h2>
+  <div class="gal" id="gal"></div>
+</div></section>
+
+<section class="reviews"><div class="wrap rv" id="rv"></div></section>
+
+<section id="konum"><div class="wrap loc">
+  <div>
+    <h2 class="d" data-t="locTitle"></h2>
+    <p class="addr" data-c="address"></p>
+    <ul class="walk" id="walk"></ul>
+  </div>
+  <iframe class="map" loading="lazy" id="map" title="Harita"></iframe>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2 class="d" style="margin-bottom:34px" data-t="faqTitle"></h2>
+  <div class="faq" id="faq"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="top">
+    <div><span class="name" data-c="name"></span><p data-c="address" style="max-width:34ch"></p></div>
+    <div><p><a id="footWa" target="_blank" rel="noopener" data-t="call"></a></p><p data-c="phone"></p><p data-c="email"></p></div>
+    <div><p data-t="hours"></p></div>
+  </div>
+  <p class="credit" id="credit"></p>
+</div></footer>
+
+<div class="mbar"><a class="btn btn-line" id="mbarWa" target="_blank" rel="noopener" style="color:var(--ok)"><svg><use href="#i-wa"/></svg>WhatsApp</a><button class="btn btn-sky" data-open data-t="book"></button></div>
+
+<dialog id="modal" aria-labelledby="mTitle"><div class="sheet">
+  <button class="x" id="closeBtn" aria-label="Kapat"><svg><use href="#i-x"/></svg></button>
+  <h2 class="d" id="mTitle" data-t="mTitle"></h2><p class="sub" data-t="mSub"></p>
+  <div class="g2">
+    <div class="fld"><label for="mIn" data-t="in"></label><input type="date" id="mIn"></div>
+    <div class="fld"><label for="mOut" data-t="out"></label><input type="date" id="mOut"></div>
+    <div class="fld"><label for="mG" data-t="guests"></label><select id="mG"></select></div>
+    <div class="fld"><label for="mR" data-t="room"></label><select id="mR"></select></div>
+    <div class="fld full"><label for="mName" data-t="yourName"></label><input id="mName" autocomplete="name"></div>
+  </div>
+  <div class="sum tnum" id="sum"></div>
+  <div class="err" id="err" role="alert"></div>
+  <a class="btn btn-sky" id="sendWa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-t="sendWa"></span></a>
+  <p class="fine" data-t="noPay"></p>
+</div></dialog>
+
+<div class="lb" id="lb"><img id="lbImg" alt=""></div>
+
+<script>
+/* ============================ CONFIG ============================ */
+const CONFIG = {
+  name: "Revak Konak",
+  whatsapp: "905000000000",
+  phone: "+90 (482) 000 00 00",
+  email: "rezervasyon@ornekkonak.com",
+  address: "Şar Mahallesi, Eski Mardin, Artuklu / Mardin",
+  mapQuery: "Mardin Kalesi",
+  directDiscount: 10          // doğrudan rezervasyon indirimi (%)
+};
+const IMG = f => `../assets/img/photo-${f}.jpg`;
+const ROOMS = [
+  {id:"avlu", price:3200, cap:2, size:22, img:IMG("f53683833-960"),
+   n:{tr:"Avlu Oda",en:"Courtyard Room",ar:"غرفة الفناء"},
+   d:{tr:"Avluya bakan, tonozlu tavanlı serin oda. Yaz öğlelerinde bile klimaya gerek kalmıyor.",en:"A cool vaulted room facing the courtyard. Even on summer afternoons you rarely need the A/C.",ar:"غرفة مقببة باردة تطل على الفناء، لا تحتاج فيها إلى المكيّف حتى في ظهيرة الصيف."}},
+  {id:"ova", price:4500, cap:2, size:28, img:IMG("f53684957-960"),
+   n:{tr:"Ova Odası",en:"Plain-View Room",ar:"غرفة السهل"},
+   d:{tr:"Pencereleri Mezopotamya ovasına açılıyor. Misafirlerimizin en çok istediği oda.",en:"Its windows open onto the Mesopotamian plain. Our guests ask for it most.",ar:"نوافذها تطل على سهل ميزوبوتاميا، وهي الأكثر طلباً بين ضيوفنا."}},
+  {id:"aile", price:5800, cap:4, size:38, img:IMG("f53684865-960"),
+   n:{tr:"Asmakatlı Aile Odası",en:"Family Loft Room",ar:"غرفة عائلية بطابق علوي"},
+   d:{tr:"Ahşap asma katında çocuklar için iki yatak. Taş kemerin altında ayrı oturma köşesi.",en:"Two beds for the kids on the wooden loft, and a seating nook under the stone arch.",ar:"سريران للأطفال في الطابق الخشبي العلوي، وركن جلوس تحت القوس الحجري."}},
+  {id:"suit", price:7500, cap:3, size:45, img:IMG("f53683858-960"),
+   n:{tr:"Teras Süit",en:"Terrace Suite",ar:"جناح التراس"},
+   d:{tr:"Kendi terası olan tek oda. Akşam yemeğini kale ışıkları yanarken dışarıda yiyebilirsiniz.",en:"The only room with its own terrace. Have dinner outside as the citadel lights come on.",ar:"الغرفة الوحيدة بتراس خاص. تناول العشاء في الخارج بينما تُضاء أنوار القلعة."}}
+];
+const DAY = [
+  {time:"08:30", img:IMG("f84820174-960"),
+   t:{tr:"Terasta Mardin kahvaltısı",en:"Mardin breakfast on the terrace",ar:"فطور ماردينيّ على التراس"},
+   d:{tr:"Sembusek, ayran aşı, köy peyniri, dut pekmezi. Hepsi konağın mutfağında, o sabah hazırlanıyor.",en:"Sembusek, yoghurt soup, village cheese, mulberry molasses. All made in our kitchen that morning.",ar:"سمبوسك، شوربة اللبن، جبن القرية ودبس التوت. كلها تُحضَّر في مطبخنا صباح ذلك اليوم."}},
+  {time:"11:00", img:IMG("f123653762-960"),
+   t:{tr:"Kasımiye'ye yürüyüş",en:"A walk to Kasımiye",ar:"نزهة إلى القاسمية"},
+   d:{tr:"Resepsiyon sabah rotanızı çiziyor: Zinciriye, Ulu Cami, Kasımiye Medresesi. Arabaya gerek yok.",en:"Reception maps your morning: Zinciriye, the Great Mosque, Kasımiye Madrasa. No car needed.",ar:"يرسم لك الاستقبال مسار الصباح: الزنجيرية، الجامع الكبير، مدرسة القاسمية. دون حاجة إلى سيارة."}},
+  {time:"19:30", img:IMG("f151677848-960"),
+   t:{tr:"Kale ışıkları yanarken",en:"As the citadel lights up",ar:"حين تُضاء القلعة"},
+   d:{tr:"Avluda mırra ikramı. Ova karardıkça aşağıdaki Kızıltepe ışıkları görünmeye başlıyor.",en:"Mırra coffee in the courtyard. As the plain darkens, the lights of Kızıltepe appear below.",ar:"قهوة المرّة في الفناء. ومع حلول الظلام على السهل تظهر أنوار قزل تبه في الأسفل."}}
+];
+const GALLERY = ["f110850808-960","f15026091-500","f151678193-960","f151678184-500","f151677849-960","f151677398-960"];
+
+/* ============================ ÇEVİRİLER ============================ */
+const T = {
+ tr:{nRooms:"Odalar",nDay:"Konakta bir gün",nGallery:"Fotoğraflar",nLoc:"Konum",book:"Rezervasyon",
+  heroTitle:"Eski Mardin'de 1878 yapımı taş konak",heroText:"Sekiz oda, Mezopotamya ovasına bakan bir teras ve her sabah konağın mutfağında hazırlanan Mardin kahvaltısı.",
+  seeRooms:"Odaları gör",askWa:"WhatsApp'tan sor",
+  in:"Giriş",out:"Çıkış",guests:"Kişi",room:"Oda",check:"Fiyatı gör",person:"kişi",
+  ledge:"Doğrudan rezervasyonda <b>%{d} daha ucuz</b>. Rezervasyon sitelerine komisyon ödemiyoruz, farkı size yansıtıyoruz.",
+  roomsTitle:"Dört oda, dördü de taştan",roomsText:"Her oda konağın farklı bir köşesinde. Fiyatlara kahvaltı dahil; üstü çizili rakam, rezervasyon sitelerindeki fiyat.",
+  night:"gece",m2:"m²",upTo:"kişi",direct:"%{d} doğrudan indirim",bookRoom:"Bu odayı ayır",
+  dayTitle:"Konakta bir gün",dayText:"Misafirlerimizin çoğu iki gece kalıyor. Bir günü genelde böyle geçiyor.",
+  houseTitle:"Konak 1878'den beri aynı avlunun etrafında",houseText:"Revak Konak, Ulu Cami'ye dört dakika yürüme mesafesinde, 2019'da aslına uygun restore edilmiş bir Mardin evi. Kapıdaki taş oymalar, tonozlar ve avlu özgün hâliyle duruyor.",
+  doorAlt:"Konağın oymalı taş kapısı",
+  galTitle:"Konaktan ve sokağından",
+  scoreLabel:"412 misafir yorumunun ortalaması",
+  locTitle:"Her yere yürüyerek",
+  faqTitle:"Sorduğunuz sorular",hours:"Resepsiyon 7/24 açık. Giriş 14:00, çıkış 12:00.",
+  call:"WhatsApp'tan yazın",mTitle:"Rezervasyon talebi",mSub:"Talebiniz WhatsApp ile doğrudan konağa gider. Genelde 15 dakika içinde yanıtlıyoruz.",
+  yourName:"Adınız soyadınız",sendWa:"Talebi WhatsApp'tan gönder",noPay:"Şimdi ödeme yok. Girişten 48 saat öncesine kadar ücretsiz iptal.",
+  nights:"gece",otaPrice:"Rezervasyon sitelerinde",directPrice:"Doğrudan fiyat",save:"Kazancınız",total:"Toplam",
+  errDates:"Giriş ve çıkış tarihlerini seçin; çıkış girişten sonra olmalı.",errCap:"Bu oda en fazla {c} kişilik. Daha büyük bir oda seçin.",errName:"Adınızı yazın, talebi adınıza açalım.",
+  waHello:"Merhaba, web sitenizden rezervasyon talebi:",waAsk:"Merhaba, konaklama hakkında bilgi almak istiyorum.",
+  credit:"Fotoğraflar: Wikimedia Commons"},
+ en:{nRooms:"Rooms",nDay:"A day here",nGallery:"Photos",nLoc:"Location",book:"Book",
+  heroTitle:"An 1878 stone mansion in Old Mardin",heroText:"Eight rooms, a terrace over the Mesopotamian plain, and a Mardin breakfast made in our own kitchen every morning.",
+  seeRooms:"See the rooms",askWa:"Ask on WhatsApp",
+  in:"Check-in",out:"Check-out",guests:"Guests",room:"Room",check:"See price",person:"guests",
+  ledge:"Book direct and pay <b>{d}% less</b>. We pay no booking-site commission, so you keep the difference.",
+  roomsTitle:"Four rooms, all of stone",roomsText:"Each room sits in a different corner of the house. Breakfast is included; the struck-through figure is the booking-site price.",
+  night:"night",m2:"m²",upTo:"guests",direct:"{d}% direct discount",bookRoom:"Book this room",
+  dayTitle:"A day at the mansion",dayText:"Most guests stay two nights. A day here usually goes like this.",
+  houseTitle:"Built around the same courtyard since 1878",houseText:"Revak Konak is a Mardin house four minutes' walk from the Great Mosque, faithfully restored in 2019. The carved stone door, the vaults and the courtyard are original.",
+  doorAlt:"The mansion's carved stone doorway",
+  galTitle:"The house and its street",
+  scoreLabel:"average of 412 guest reviews",
+  locTitle:"Everything on foot",
+  faqTitle:"Questions guests ask",hours:"Reception open 24/7. Check-in 14:00, check-out 12:00.",
+  call:"Message us on WhatsApp",mTitle:"Booking request",mSub:"Your request goes straight to the mansion on WhatsApp. We usually reply within 15 minutes.",
+  yourName:"Full name",sendWa:"Send request on WhatsApp",noPay:"No payment now. Free cancellation up to 48 hours before check-in.",
+  nights:"nights",otaPrice:"On booking sites",directPrice:"Direct price",save:"You save",total:"Total",
+  errDates:"Choose check-in and check-out dates; check-out must come after check-in.",errCap:"This room fits up to {c} guests. Choose a larger room.",errName:"Enter your name so we can hold the room for you.",
+  waHello:"Hello, booking request from your website:",waAsk:"Hello, I'd like information about staying with you.",
+  credit:"Photographs: Wikimedia Commons"},
+ ar:{nRooms:"الغرف",nDay:"يوم في القصر",nGallery:"الصور",nLoc:"الموقع",book:"احجز",
+  heroTitle:"قصر حجري من عام ١٨٧٨ في ماردين القديمة",heroText:"ثماني غرف، وتراس يطل على سهل ميزوبوتاميا، وفطور ماردينيّ يُحضَّر في مطبخنا كل صباح.",
+  seeRooms:"شاهد الغرف",askWa:"اسألنا عبر واتساب",
+  in:"الوصول",out:"المغادرة",guests:"الضيوف",room:"الغرفة",check:"اعرض السعر",person:"أشخاص",
+  ledge:"احجز مباشرة وادفع <b>أقل بنسبة {d}٪</b>. لا ندفع عمولة لمواقع الحجز، فيبقى الفرق لك.",
+  roomsTitle:"أربع غرف، كلها من الحجر",roomsText:"كل غرفة في ركن مختلف من البيت. الفطور مشمول؛ والرقم المشطوب هو سعر مواقع الحجز.",
+  night:"ليلة",m2:"م²",upTo:"أشخاص",direct:"خصم مباشر {d}٪",bookRoom:"احجز هذه الغرفة",
+  dayTitle:"يوم في القصر",dayText:"يقيم معظم ضيوفنا ليلتين، ويمضي يومهم عادة هكذا.",
+  houseTitle:"حول الفناء نفسه منذ ١٨٧٨",houseText:"ريفاك كوناك بيت ماردينيّ على بعد أربع دقائق سيراً من الجامع الكبير، رُمّم بأمانة عام ٢٠١٩. الباب الحجري المنحوت والأقبية والفناء على حالها الأصلية.",
+  doorAlt:"الباب الحجري المنحوت للقصر",
+  galTitle:"البيت وشارعه",
+  scoreLabel:"متوسط ٤١٢ تقييماً من الضيوف",
+  locTitle:"كل شيء سيراً على الأقدام",
+  faqTitle:"أسئلة يطرحها الضيوف",hours:"الاستقبال مفتوح على مدار الساعة. الوصول ١٤:٠٠ والمغادرة ١٢:٠٠.",
+  call:"راسلنا عبر واتساب",mTitle:"طلب حجز",mSub:"يصل طلبك مباشرة إلى القصر عبر واتساب، ونرد عادة خلال ١٥ دقيقة.",
+  yourName:"الاسم الكامل",sendWa:"أرسل الطلب عبر واتساب",noPay:"لا دفع الآن. إلغاء مجاني حتى ٤٨ ساعة قبل الوصول.",
+  nights:"ليالٍ",otaPrice:"في مواقع الحجز",directPrice:"السعر المباشر",save:"توفيرك",total:"المجموع",
+  errDates:"اختر تاريخي الوصول والمغادرة؛ يجب أن تكون المغادرة بعد الوصول.",errCap:"تتسع هذه الغرفة لـ {c} أشخاص كحد أقصى. اختر غرفة أكبر.",errName:"اكتب اسمك لنحجز الغرفة باسمك.",
+  waHello:"مرحباً، طلب حجز من موقعكم:",waAsk:"مرحباً، أود الاستفسار عن الإقامة لديكم.",
+  credit:"الصور: ويكيميديا كومنز"}
+};
+const FACTS = {
+ tr:[["i-cup","Kahvaltı dahil","Her sabah terasta, 08:00–11:00"],["i-car","Havalimanı transferi","Talep üzerine, 25 dakika"],["i-key","Otopark 150 m","Bavullarınızı biz taşıyoruz"],["i-wifi","Fiber Wi-Fi","Taş duvarlara rağmen her odada"],["i-map","Rehberli tur","Midyat, Dara, Deyrulzafaran"],["i-child","Bebek yatağı","Ücretsiz, önceden haber verin"]],
+ en:[["i-cup","Breakfast included","Every morning on the terrace, 08:00–11:00"],["i-car","Airport transfer","On request, 25 minutes"],["i-key","Parking 150 m away","We carry your luggage"],["i-wifi","Fibre Wi-Fi","In every room, stone walls and all"],["i-map","Guided tours","Midyat, Dara, Deyrulzafaran"],["i-child","Baby cot","Free, just let us know"]],
+ ar:[["i-cup","الفطور مشمول","كل صباح على التراس، ٠٨:٠٠–١١:٠٠"],["i-car","نقل من المطار","عند الطلب، ٢٥ دقيقة"],["i-key","موقف على بعد ١٥٠ م","نحمل أمتعتك عنك"],["i-wifi","واي فاي ألياف","في كل غرفة رغم الجدران الحجرية"],["i-map","جولات مع مرشد","مديات، دارا، دير الزعفران"],["i-child","سرير أطفال","مجاناً، أخبرنا مسبقاً"]]
+};
+const REVIEWS = [
+ {who:"Elif K.",from:{tr:"İstanbul",en:"Istanbul",ar:"إسطنبول"},
+  tr:"Sabah terasa çıktığımızda ova sisin altındaydı. Kahvaltıyı iki saat uzattık. Mardin'e bir daha gelirsek başka yerde kalmayız.",
+  en:"When we came out onto the terrace the plain was still under mist. Breakfast went on for two hours. If we come back to Mardin we won't stay anywhere else.",
+  ar:"حين خرجنا إلى التراس صباحاً كان السهل لا يزال تحت الضباب. امتد الفطور ساعتين. إن عدنا إلى ماردين فلن نقيم في مكان آخر."},
+ {who:"Ahmed A.",from:{tr:"Riyad",en:"Riyadh",ar:"الرياض"},
+  tr:"Resepsiyonla Arapça konuşabildik. Aile odası çocuklarla çok rahattı.",en:"We could speak Arabic with reception. The family room was easy with the kids.",ar:"تحدثنا بالعربية مع الاستقبال، وكانت الغرفة العائلية مريحة جداً مع الأطفال."},
+ {who:"Laura M.",from:{tr:"Berlin",en:"Berlin",ar:"برلين"},
+  tr:"Temmuzda geldik, taş duvarlar odayı serin tutuyor. Konumu kusursuz.",en:"We came in July and the stone walls kept the room cool. The location is perfect.",ar:"جئنا في يوليو، والجدران الحجرية أبقت الغرفة باردة. الموقع مثالي."}
+];
+const NEAR = {tr:[["Ulu Cami","4 dk yürüme"],["Zinciriye Medresesi","6 dk yürüme"],["Kasımiye Medresesi","12 dk yürüme"],["Deyrulzafaran Manastırı","10 dk araçla"],["Mardin Havalimanı","25 dk araçla"]],
+ en:[["Great Mosque","4 min walk"],["Zinciriye Madrasa","6 min walk"],["Kasımiye Madrasa","12 min walk"],["Deyrulzafaran Monastery","10 min drive"],["Mardin Airport","25 min drive"]],
+ ar:[["الجامع الكبير","٤ دقائق سيراً"],["مدرسة الزنجيرية","٦ دقائق سيراً"],["مدرسة القاسمية","١٢ دقيقة سيراً"],["دير الزعفران","١٠ دقائق بالسيارة"],["مطار ماردين","٢٥ دقيقة بالسيارة"]]};
+const FAQ = {
+ tr:[["Konağa arabayla gelebilir miyim?","Eski şehrin sokakları dar. Aracınızı 150 metre ötedeki otoparka bırakıyorsunuz, bavullarınızı biz taşıyoruz."],["Ödemeyi ne zaman yapıyorum?","Girişte nakit, kart ya da havaleyle. Önceden ödeme istemiyoruz."],["Erken giriş mümkün mü?","Oda hazırsa ücretsiz. Varış saatinizi WhatsApp'tan yazmanız yeterli."],["Evcil hayvan kabul ediyor musunuz?","Küçük hayvanları önceden haber vermeniz şartıyla kabul ediyoruz."]],
+ en:[["Can I drive to the mansion?","Old-town streets are narrow. You park 150 m away and we carry your luggage."],["When do I pay?","At check-in, by cash, card or bank transfer. We take no prepayment."],["Is early check-in possible?","Free if the room is ready. Just send us your arrival time on WhatsApp."],["Are pets allowed?","Small pets are welcome if you let us know in advance."]],
+ ar:[["هل يمكنني الوصول بالسيارة؟","شوارع المدينة القديمة ضيقة. تركن سيارتك على بعد ١٥٠ م ونحمل أمتعتك عنك."],["متى أدفع؟","عند الوصول نقداً أو بالبطاقة أو بالتحويل. لا نطلب دفعاً مسبقاً."],["هل الوصول المبكر ممكن؟","مجاني إن كانت الغرفة جاهزة. أرسل لنا موعد وصولك عبر واتساب."],["هل تقبلون الحيوانات الأليفة؟","نقبل الحيوانات الصغيرة بشرط إخبارنا مسبقاً."]]
+};
+
+/* ============================ KOD ============================ */
+let L = new URLSearchParams(location.search).get("lang") || (()=>{try{return localStorage.getItem("konakLang")}catch(e){return null}})() || "tr";
+if(!T[L]) L = "tr";
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const t = k => T[L][k] ?? k;
+const loc = () => L==="ar" ? "ar-EG" : L==="en" ? "en-GB" : "tr-TR";
+const money = n => Math.round(n).toLocaleString(loc()) + " ₺";
+const wa = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+const iso = d => d.toISOString().slice(0,10);
+const direct = p => p * (1 - CONFIG.directDiscount/100);
+const ico = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
+
+function render(){
+  const root = document.documentElement;
+  root.lang = L; root.dir = L==="ar" ? "rtl" : "ltr";
+  $$("[data-t]").forEach(e => e.innerHTML = t(e.dataset.t).replace("{d}",CONFIG.directDiscount));
+  $$("[data-c]").forEach(e => e.textContent = CONFIG[e.dataset.c]);
+  $$("[data-alt]").forEach(e => e.alt = t(e.dataset.alt));
+  $$(".langs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.l===L));
+  $("#ledgeNote").innerHTML = t("ledge").replace("{d}",CONFIG.directDiscount);
+  ["#heroWa","#mbarWa","#footWa"].forEach(s => $(s).href = wa(t("waAsk")));
+  document.title = `${CONFIG.name}, ${L==="ar"?"ماردين القديمة":L==="en"?"Old Mardin":"Eski Mardin"}`;
+
+  $("#arcade").innerHTML = ROOMS.map(r => `
+    <article class="room">
+      <div class="arch" data-zoom="${r.img}"><img loading="lazy" src="${r.img}" alt="${r.n[L]}"></div>
+      <div class="base">
+        <h3 class="d">${r.n[L]}</h3>
+        <div class="spec"><span>${ico("i-user")} ${r.cap} ${t("upTo")}</span><span>${ico("i-area")} ${r.size} ${t("m2")}</span></div>
+        <p>${r.d[L]}</p>
+        <div class="price tnum"><b>${money(direct(r.price))}</b><s>${money(r.price)}</s><small>/ ${t("night")}</small></div>
+        <div class="flag">${t("direct").replace("{d}",CONFIG.directDiscount)}</div>
+        <button class="btn btn-sky" data-room="${r.id}">${t("bookRoom")}</button>
+      </div>
+    </article>`).join("");
+
+  $("#dayList").innerHTML = DAY.map(m => `
+    <div class="moment"><time>${m.time}</time><div><h3 class="d">${m.t[L]}</h3><p>${m.d[L]}</p></div>
+    <figure><img loading="lazy" src="${m.img}" alt="${m.t[L]}"></figure></div>`).join("");
+
+  $("#facts").innerHTML = FACTS[L].map(f => `<div>${ico(f[0])}<span><b>${f[1]}</b>${f[2]}</span></div>`).join("");
+  $("#gal").innerHTML = GALLERY.map(g => `<button aria-label="${t("nGallery")}" data-zoom="${IMG(g)}"><img loading="lazy" src="${IMG(g)}" alt=""></button>`).join("");
+
+  const [first,...rest] = REVIEWS;
+  $("#rv").innerHTML = `<div class="big"><q>${first[L]}</q><div class="who"><b>${first.who}</b>, ${first.from[L]}</div></div>
+    <div><div class="score"><b class="tnum">9,4</b><span>${t("scoreLabel")}</span></div>
+    ${rest.map(r=>`<div class="small"><p>${r[L]}</p><div class="who"><b>${r.who}</b>, ${r.from[L]}</div></div>`).join("")}</div>`;
+
+  $("#walk").innerHTML = NEAR[L].map(n => `<li><span>${n[0]}</span><span>${n[1]}</span></li>`).join("");
+  $("#faq").innerHTML = FAQ[L].map(f => `<details><summary>${f[0]}${ico("i-plus")}</summary><p>${f[1]}</p></details>`).join("");
+  $("#credit").innerHTML = `${t("credit")}: MSinjari, Volker Höhfeld, AKADLAR, Dosseman, Hamdigumus, Nevit Dilmen, Jwslubbock (CC BY / CC BY-SA / CC0).`;
+
+  const gOpts = [1,2,3,4].map(n=>`<option value="${n}">${n} ${t("person")}</option>`).join("");
+  const rOpts = ROOMS.map(r=>`<option value="${r.id}">${r.n[L]}</option>`).join("");
+  ["#bG","#mG"].forEach(s => { const v=$(s).value||2; $(s).innerHTML=gOpts; $(s).value=v; });
+  ["#bR","#mR"].forEach(s => { const v=$(s).value||"ova"; $(s).innerHTML=rOpts; $(s).value=v; });
+  if($("#modal").open) calc();
+}
+
+function calc(){
+  const r = ROOMS.find(x=>x.id===$("#mR").value), g = +$("#mG").value;
+  const n = Math.round((new Date($("#mOut").value) - new Date($("#mIn").value))/864e5);
+  $("#err").textContent = "";
+  if(!(n>0)){ $("#sum").innerHTML = ""; $("#err").textContent = t("errDates"); return null; }
+  if(g > r.cap) $("#err").textContent = t("errCap").replace("{c}",r.cap);
+  const ota = r.price*n, dir = direct(r.price)*n;
+  $("#sum").innerHTML = `
+    <div><span>${r.n[L]}, ${n} ${t("nights")}</span><span>${g} ${t("person")}</span></div>
+    <div><span>${t("otaPrice")}</span><s>${money(ota)}</s></div>
+    <div class="save"><span>${t("save")}</span><span>${money(ota-dir)}</span></div>
+    <div class="tot"><span>${t("total")}</span><span>${money(dir)}</span></div>`;
+  return {r,g,n,dir};
+}
+function openBook(roomId){
+  $("#mR").value = roomId || $("#bR").value;
+  $("#mIn").value = $("#bIn").value; $("#mOut").value = $("#bOut").value; $("#mG").value = $("#bG").value;
+  $("#modal").showModal(); calc();
+}
+document.addEventListener("click", e => {
+  const o = e.target.closest("[data-open]"); if(o){ openBook(); return; }
+  const r = e.target.closest("[data-room]"); if(r){ openBook(r.dataset.room); return; }
+  const z = e.target.closest("[data-zoom]"); if(z){ $("#lbImg").src = z.dataset.zoom; $("#lb").classList.add("open"); }
+});
+$("#lb").onclick = () => $("#lb").classList.remove("open");
+$("#closeBtn").onclick = () => $("#modal").close();
+$("#modal").addEventListener("click", e => { if(e.target.id==="modal") $("#modal").close(); });
+["#mIn","#mOut","#mG","#mR"].forEach(s => $(s).addEventListener("change", calc));
+$("#bookbar").addEventListener("submit", e => { e.preventDefault(); openBook(); });
+$("#sendWa").addEventListener("click", e => {
+  const c = calc(), name = $("#mName").value.trim();
+  if(!c || c.g > c.r.cap){ e.preventDefault(); return; }
+  if(!name){ e.preventDefault(); $("#err").textContent = t("errName"); $("#mName").focus(); return; }
+  const msg = `${t("waHello")}\n\n${t("yourName")}: ${name}\n${t("room")}: ${c.r.n[L]}\n${t("in")}: ${$("#mIn").value}\n${t("out")}: ${$("#mOut").value} (${c.n} ${t("nights")})\n${t("guests")}: ${c.g}\n${t("total")}: ${money(c.dir)}`;
+  e.currentTarget.href = wa(msg);
+});
+
+const d1 = new Date(); d1.setDate(d1.getDate()+1);
+const d2 = new Date(); d2.setDate(d2.getDate()+3);
+["#bIn","#mIn"].forEach(s => { $(s).value = iso(d1); $(s).min = iso(new Date()); });
+["#bOut","#mOut"].forEach(s => { $(s).value = iso(d2); $(s).min = iso(d1); });
+$("#map").src = `https://maps.google.com/maps?q=${encodeURIComponent(CONFIG.mapQuery)}&z=16&output=embed`;
+
+$$(".langs button").forEach(b => b.onclick = () => { L=b.dataset.l; try{localStorage.setItem("konakLang",L)}catch(e){} render(); });
+const nav = $("#nav");
+const onScroll = () => nav.classList.toggle("solid", scrollY > innerHeight*.6);
+addEventListener("scroll", onScroll, {passive:true}); onScroll();
+document.addEventListener("keydown", e => { if(e.key==="Escape") $("#lb").classList.remove("open"); });
+render();
+</script>
+</body>
+</html>

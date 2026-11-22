@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kızıltepe Emlak, satılık ve kiralık ilanlar</title>
+<meta name="description" content="Kızıltepe ve Mardin'de satılık, kiralık daire, dükkân, arsa ve müstakil ev ilanları.">
+<meta name="theme-color" content="#f6f6f3">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   EMLAK İLAN SİTESİ DEMO
+   Müşteriye uyarlamak için: CONFIG ve LISTINGS (alttaki <script>).
+   Her ilanın kendi linki olur: sayfa.html#ilan-1024
+   ===================================================================== */
+:root{
+  --bg:#f6f6f3;
+  --white:#fff;
+  --ink:#161a1d;
+  --ink-2:#5b6267;
+  --rule:#e3e3dd;
+  --wheat:#c8962b;     /* Kızıltepe ovası */
+  --wheat-2:#f3e7c9;
+  --soil:#7a4b22;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Schibsted Grotesk",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
+::selection{background:var(--wheat);color:var(--ink)}
+:focus-visible{outline:2px solid var(--wheat);outline-offset:2px;border-radius:3px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+.tnum{font-variant-numeric:lining-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,32px)}
+svg.i{width:18px;height:18px;flex:none}
+
+header{position:absolute;inset:0 0 auto;z-index:5;color:#fff}
+header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-bottom:18px}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.02em;color:inherit;text-decoration:none;margin-inline-end:auto}
+.hbtn{display:inline-flex;align-items:center;gap:7px;border:0;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:9px 15px;font-weight:600;font-size:14.5px;text-decoration:none}
+.hbtn.on{background:#fff;color:var(--ink)}
+.hbtn.p{background:var(--wheat);color:var(--ink)}
+.fav-n{opacity:.8}
+@media(max-width:560px){.hbtn .t{display:none}}
+
+/* hero: the plain itself, with the search written as a sentence */
+.hero{position:relative;min-height:min(78vh,720px);display:flex;align-items:flex-end;color:#fff;background:#6b5a3a}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,17,19,.45) 0%,rgba(15,17,19,0) 30%,rgba(15,17,19,.15) 55%,rgba(15,17,19,.7) 100%)}
+.hero .wrap{position:relative;z-index:1;width:100%;padding-bottom:40px}
+.hero h1{font-weight:800;font-size:clamp(44px,7.2vw,104px);line-height:.95;letter-spacing:-.035em;max-width:12ch;animation:in .9s var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(18px)}}
+
+.ask{margin-top:28px;background:var(--white);color:var(--ink);border-radius:14px;padding:20px 24px;font-size:clamp(19px,2.1vw,26px);font-weight:500;line-height:1.9;letter-spacing:-.01em;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.ask select,.ask input{appearance:none;-webkit-appearance:none;border:0;border-bottom:2px solid var(--wheat);background:transparent;font-weight:700;padding:0 22px 0 2px;border-radius:0;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8962b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:16px;max-width:100%}
+.ask select:disabled{opacity:.4;cursor:not-allowed}
+.ask input{background-image:none;padding:0 2px;cursor:text;width:12ch;font-weight:600}
+.ask input::placeholder{color:#b3b3ab;font-weight:500}
+.ask select:focus,.ask input:focus{outline:0;background-color:var(--wheat-2)}
+.ask .meta{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;margin-top:10px;padding-top:12px;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.5;color:var(--ink-2);font-weight:400}
+.ask .meta b{color:var(--ink)}
+@media(max-width:600px){.ask{padding:16px 18px;line-height:2}}
+
+/* results */
+.bar{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:44px 0 18px}
+.bar h2{font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.bar h2 small{display:block;font-size:15px;font-weight:400;color:var(--ink-2);letter-spacing:0;margin-top:4px}
+.bar select{border:1px solid var(--rule);background:var(--white);border-radius:8px;padding:9px 12px;font-size:14.5px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px;padding-bottom:64px}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{cursor:pointer}
+.card .ph{position:relative;aspect-ratio:3/2;border-radius:10px;overflow:hidden;background:var(--rule)}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .ph img{transform:scale(1.03)}
+.kind{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+.kind span{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.94);color:var(--ink)}
+.kind .s{background:var(--ink);color:#fff}
+.kind .k{background:var(--wheat);color:var(--ink)}
+.kind .n{background:#fff;color:var(--soil)}
+.favb{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.94);display:grid;place-items:center;color:var(--ink);transition:transform .15s}
+.favb:active{transform:scale(.9)}
+.favb svg{width:19px;height:19px}
+.favb.on{color:#c0392b}
+.favb.on svg{fill:currentColor}
+.cnt{position:absolute;bottom:10px;right:10px;font-size:12.5px;font-weight:600;color:#fff;background:rgba(15,17,19,.6);border-radius:6px;padding:2px 8px;display:flex;gap:5px;align-items:center}
+.cnt svg{width:14px;height:14px}
+.card .pr{display:flex;align-items:baseline;gap:8px;margin-top:14px;font-size:25px;font-weight:800;letter-spacing:-.02em}
+.card .pr small{font-size:14px;font-weight:500;color:var(--ink-2);letter-spacing:0}
+.card h3{font-size:16px;font-weight:500;line-height:1.35;margin-top:3px;color:#2b3135}
+.specs{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+.specs b{color:var(--ink);font-weight:600}
+.none{grid-column:1/-1;text-align:center;padding:56px 16px;background:var(--white);border-radius:12px;color:var(--ink-2)}
+.none button{margin-top:14px;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-weight:600}
+
+/* sell band */
+.sell{background:var(--ink);color:#fff}
+.sell .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px 56px;align-items:center;padding-top:64px;padding-bottom:64px}
+.sell h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.sell p{color:#b9bfc3;margin-top:14px;max-width:48ch}
+.sell .act{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 22px;font-weight:600;text-decoration:none;border:0}
+.btn svg{width:18px;height:18px}
+.btn-w{background:var(--wheat);color:var(--ink)}
+.btn-o{box-shadow:inset 0 0 0 1.5px #59626a;color:#fff}
+@media(max-width:820px){.sell .wrap{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#8d959b;font-size:13px;border-top:1px solid #2a3035}
+footer .wrap{padding-top:20px;padding-bottom:28px;display:grid;gap:6px}
+footer .credit{font-size:11.5px;color:#6d757b}
+
+/* detail */
+.ov{position:fixed;inset:0;background:rgba(12,14,16,.6);z-index:30;display:flex;justify-content:center;align-items:flex-start;overflow:auto;padding:28px 16px;opacity:0;pointer-events:none;transition:opacity .25s}
+.ov.open{opacity:1;pointer-events:auto}
+.det{position:relative;background:var(--white);border-radius:16px;width:min(1080px,100%);overflow:hidden;transform:translateY(16px);transition:transform .35s var(--ease)}
+.ov.open .det{transform:none}
+.x{position:absolute;top:14px;right:14px;z-index:3;width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.x svg{width:18px;height:18px}
+.gal{position:relative;aspect-ratio:16/8;background:#222}
+.gal img{width:100%;height:100%;object-fit:cover}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center}
+.nav svg{width:20px;height:20px}
+.prev{left:14px}.next{right:14px}
+.thumbs{display:flex;gap:6px;padding:8px;overflow-x:auto;background:#f1f1ed}
+.thumbs img{width:84px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.55;transition:opacity .15s}
+.thumbs img.on{opacity:1;outline:2px solid var(--wheat);outline-offset:1px}
+.dbody{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:36px;padding:28px}
+@media(max-width:860px){.dbody{grid-template-columns:1fr;padding:20px}.gal{aspect-ratio:4/3}}
+.dbody .kind{position:static;margin-bottom:10px}
+.dbody h2{font-size:clamp(24px,2.6vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.dbody .pr{font-size:34px;font-weight:800;letter-spacing:-.02em;margin-top:10px}
+.dbody .pr small{font-size:15px;font-weight:500;color:var(--ink-2)}
+.dbody .where{color:var(--ink-2);font-size:15px;margin-top:2px}
+.tbl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--rule);border-radius:10px;margin:22px 0}
+.tbl div{padding:11px 14px;border-bottom:1px solid var(--rule);font-weight:600}
+.tbl div:nth-child(n+5){border-bottom:0}
+.tbl div:not(:nth-child(4n+1)){border-inline-start:1px solid var(--rule)}
+.tbl span{display:block;font-size:12.5px;font-weight:400;color:var(--ink-2)}
+@media(max-width:560px){.tbl{grid-template-columns:repeat(2,minmax(0,1fr))}.tbl div{border-bottom:1px solid var(--rule)!important;border-inline-start:0!important}.tbl div:nth-child(even){border-inline-start:1px solid var(--rule)!important}.tbl div:nth-last-child(-n+2){border-bottom:0!important}}
+.dbody p{color:#363c40;max-width:62ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{display:inline-flex;align-items:center;gap:6px;font-size:14px;border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+.tags svg{width:14px;height:14px;color:var(--wheat)}
+.agent{position:sticky;top:20px;border:1px solid var(--rule);border-radius:14px;padding:20px}
+.who{display:flex;gap:12px;align-items:center}
+.av{width:48px;height:48px;border-radius:50%;background:var(--wheat-2);color:var(--soil);display:grid;place-items:center;font-weight:800;font-size:20px}
+.who small{color:var(--ink-2);font-size:12.5px;line-height:1.3;display:block}
+.agent .a{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;border-radius:10px;padding:13px;font-weight:600;text-decoration:none;border:0;font-size:15.5px}
+.agent .a svg{width:18px;height:18px}
+.agent .wa{background:#1f7a4d;color:#fff;margin-top:18px}
+.agent .tel{background:var(--ink);color:#fff}
+.agent .sh{background:#f1f1ed;color:var(--ink)}
+.calc{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font-size:14px}
+.calc h4{font-size:15px;font-weight:700}
+.calc label{display:flex;justify-content:space-between;margin-top:12px;color:var(--ink-2)}
+.calc label b{color:var(--ink)}
+.calc input[type=range]{width:100%;accent-color:var(--wheat);margin-top:4px}
+.calc .res{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;background:var(--wheat-2);border-radius:8px;padding:10px 12px}
+.calc .res b{font-size:22px;font-weight:800}
+.calc small{display:block;color:var(--ink-2);font-size:12px;margin-top:6px}
+.checked{display:flex;gap:8px;margin-top:14px;font-size:13px;color:var(--ink-2)}
+.checked svg{color:#1f7a4d;width:16px;height:16px;margin-top:2px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,16px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14.5px;opacity:0;pointer-events:none;transition:.25s var(--ease);z-index:40}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+</svg>
+
+<header><div class="wrap">
+  <a class="logo" href="#" id="logo"></a>
+  <button class="hbtn" id="favBtn"><svg class="i"><use href="#i-heart"/></svg><span class="t">Favoriler</span><span class="fav-n" id="favN">0</span></button>
+  <a class="hbtn p" id="sellBtn" target="_blank" rel="noopener"><svg class="i"><use href="#i-plus"/></svg><span class="t">Mülkünü ver</span></a>
+</div></header>
+
+<section class="hero">
+  <img src="../assets/img/photo-f45913250-960.jpg" srcset="../assets/img/photo-f45913250-500.jpg 500w, ../assets/img/photo-f45913250-960.jpg 960w" sizes="100vw" alt="Kızıltepe ovası ve tepe" fetchpriority="high">
+  <div class="wrap">
+    <h1>Kızıltepe'de ev, dükkân, arsa.</h1>
+    <div class="ask">
+      <label for="fKind">Bir</label> <select id="fKind" aria-label="Satılık mı kiralık mı"><option value="all">satılık ya da kiralık</option><option value="Satılık">satılık</option><option value="Kiralık">kiralık</option></select>
+      <select id="fType" aria-label="Emlak tipi"><option value="">emlak</option></select> arıyorum,
+      <select id="fHood" aria-label="Mahalle"><option value="">herhangi bir mahallede</option></select>,
+      <select id="fRoom" aria-label="Oda sayısı"><option value="">oda sayısı fark etmez</option><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select>,
+      <select id="fMax" aria-label="En yüksek fiyat"></select>.
+      <div class="meta"><span><b id="sCount" class="tnum">0</b> ilan yayında</span><span><label for="fQ">Özellik ara:</label> <input id="fQ" placeholder="asansör, bahçe"></span></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="bar"><h2 id="resT"></h2><select id="sort" aria-label="Sırala"><option value="new">En yeni</option><option value="pa">Ucuzdan pahalıya</option><option value="pd">Pahalıdan ucuza</option><option value="m2">En geniş</option></select></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="sell"><div class="wrap">
+  <div><h2>Evinizi, dükkânınızı satmak mı istiyorsunuz?</h2>
+  <p>Yerinde görüp fotoğraflıyoruz, bölgedeki son satışlara bakarak fiyat öneriyoruz. Değerleme ücretsiz, ilan sitede aynı gün yayında.</p></div>
+  <div class="act"><a class="btn btn-w" id="ctaWa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Değerleme isteyin</a><a class="btn btn-o" id="ctaTel"><svg><use href="#i-phone"/></svg>Arayın</a></div>
+</div></section>
+<footer><div class="wrap"><span id="foot"></span>
+  <span class="credit">Fotoğraflar örnektir. Kızıltepe: Okhilal, Volker Höhfeld (CC BY-SA 4.0); Eski Mardin: Hamdigumus (CC0); oda: AKADLAR (CC BY 3.0), Wikimedia Commons. İç mekânlar: Unsplash.</span></div></footer>
+
+<div class="ov" id="ov"><div class="det" id="det" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============================ CONFIG ============================ */
+const CONFIG = {
+  name: "Kızıltepe Emlak",
+  agent: "Mehmet Bey", agentRole: "Yetkili danışman, yetki belgesi no 0000000",
+  whatsapp: "905000000000", phone: "+905000000000",
+  town: "Kızıltepe",
+  address: "Cumhuriyet Mah., Kızıltepe / Mardin"
+};
+/* imgs: "f..." = assets/img içindeki fotoğraf, "photo-..." = Unsplash. Canlıda ilanın kendi fotoğrafları kullanılır. */
+const P = {a:"photo-1560448204-e02f11c3d0e2",b:"photo-1502672260266-1c1ef2d93688",c:"photo-1522708323590-d24dbb6b0267",d:"photo-1545324418-cc1a3fa10c00",
+  e:"photo-1512917774080-9991f1c4c750",f:"photo-1600585154340-be6161a56a0c",g:"photo-1497366216548-37526070297c",h:"photo-1441986300917-64674bd600d8",
+  i:"photo-1493809842364-78817add7ffb",j:"photo-1484154218962-a197022b5858"};
+const LISTINGS = [
+  {id:1024,t:"Satılık",type:"Daire",hood:"Yenikent",room:"3+1",m2:145,floor:"4 / 6",age:2,price:3250000,days:1,heat:"Doğalgaz kombi",
+   title:"Site içinde, iki yıllık binada güney cephe 3+1",imgs:[P.a,P.c,P.j,P.i],tags:["Asansör","Otopark","Site içinde","Güvenlik","Ankastre mutfak"],
+   d:"Yenikent'in en çok tercih edilen sitelerinden birinde, güney cepheli 3+1 daire. Okula ve çarşıya yürüyerek gidilir. Ebeveyn banyosu, geniş balkon ve ankastre mutfak var."},
+  {id:1023,t:"Kiralık",type:"Daire",hood:"Tepebaşı",room:"2+1",m2:105,floor:"2 / 4",age:8,price:9500,days:2,heat:"Doğalgaz kombi",
+   title:"Ana caddeye iki dakika, eşyasız bakımlı 2+1",imgs:[P.b,P.j,P.c],tags:["Doğalgaz","Balkon","Merkezi"],
+   d:"Tepebaşı'nda ana caddeye iki dakika yürüme mesafesinde, bakımlı daire. Öğretmen ve memur ailelerine uygun. Depozito iki kira."},
+  {id:1022,t:"Satılık",type:"Dükkân",hood:"Cumhuriyet",room:"-",m2:85,floor:"Zemin",age:12,price:3400000,days:3,heat:"Klima",
+   title:"Ana cadde üstünde kiracılı dükkân, ayda 22.000 TL getiri",imgs:[P.h,P.g],tags:["Kiracılı","Cadde cephe","Asma kat","Yatırımlık"],
+   d:"Kızıltepe'nin en işlek caddesinde 85 m² ve 30 m² asma katlı dükkân. Hâlihazırda aylık 22.000 TL kira getiriyor."},
+  {id:1021,t:"Satılık",type:"Daire",hood:"İpek",room:"4+1",m2:180,floor:"3 / 5",age:5,price:3900000,days:4,heat:"Doğalgaz kombi",
+   title:"Kalabalık aileye 180 m² teraslı dubleks",imgs:[P.e,P.f,P.a,P.i],tags:["Dubleks","Teras","2 banyo","Otopark","Ankastre mutfak"],
+   d:"180 m² dubleks daire. Üst katta teras ve ayrı oturma salonu, kapalı otopark var."},
+  {id:1025,t:"Satılık",type:"Taş ev",hood:"Eski Mardin",town:"Artuklu",room:"5+1",m2:260,floor:"İki kat, avlulu",age:120,price:7500000,days:4,heat:"Klima ve soba",
+   title:"Eski Mardin'de avlulu, restorasyonu bitmiş taş ev",imgs:["f151678193","f151678184","f53683858"],tags:["Avlu","Ova manzarası","Restorasyonlu","Butik otele uygun"],
+   d:"Kale altında, ovaya bakan iki katlı avlulu taş ev. Restorasyonu koruma kurulu onayıyla tamamlandı. Butik otel ya da pansiyon olarak işletilebilir."},
+  {id:1020,t:"Kiralık",type:"Dükkân",hood:"Yenikent",room:"-",m2:60,floor:"Zemin",age:3,price:15000,days:5,heat:"Klima",
+   title:"Sitelerin önünde cam cepheli kiralık dükkân",imgs:[P.h,P.g],tags:["Yeni bina","Cam cephe","WC"],
+   d:"Hızla büyüyen Yenikent'te sitelerin önünde, market, kafe ya da kuaför için uygun 60 m² dükkân."},
+  {id:1019,t:"Satılık",type:"Arsa",hood:"Koçhisar",room:"-",m2:520,floor:"-",age:0,price:1650000,days:6,heat:"-",
+   title:"Koçhisar yolunda imarlı köşe parsel, 4 kat izinli",imgs:["f110850808",P.d],tags:["İmarlı","Köşe parsel","Müstakil tapu","Yola cephe"],
+   d:"Konut imarlı, 4 kat izinli 520 m² köşe parsel. Elektrik ve su hattı arsanın önünde. Müstakil tapulu."},
+  {id:1018,t:"Kiralık",type:"Daire",hood:"Yenikent",room:"3+1",m2:135,floor:"5 / 8",age:1,price:13000,days:7,heat:"Doğalgaz kombi",
+   title:"Havuzlu sitede hiç oturulmamış 3+1",imgs:[P.c,P.a,P.j],tags:["Havuz","Asansör","Site içinde","Çocuk parkı"],
+   d:"Yeni teslim edilen havuzlu sitede, hiç oturulmamış 3+1. Aidat 750 TL, kiraya dahil değil."},
+  {id:1017,t:"Satılık",type:"Daire",hood:"Tepebaşı",room:"2+1",m2:110,floor:"1 / 4",age:10,price:2150000,days:9,heat:"Doğalgaz kombi",
+   title:"Krediye uygun, ilk ev için 2+1",imgs:[P.i,P.b,P.j],tags:["Krediye uygun","Balkon","Doğalgaz"],
+   d:"İlk evini alacaklar için krediye uygun, bakımlı 2+1. Pazarlık payı var."},
+  {id:1016,t:"Satılık",type:"Müstakil",hood:"Şehitlik",room:"5+1",m2:240,floor:"Bahçeli",age:15,price:4800000,days:12,heat:"Kat kaloriferi",
+   title:"400 m² meyve bahçesi içinde müstakil ev",imgs:[P.f,P.e,P.d],tags:["Bahçe","Müstakil","Garaj","Meyve ağaçları"],
+   d:"400 m² arsa içinde iki katlı müstakil ev; meyve ağaçlı bahçe, kapalı garaj ve ayrı kiler."},
+  {id:1015,t:"Kiralık",type:"Ofis",hood:"Cumhuriyet",room:"3 oda",m2:120,floor:"2 / 5",age:6,price:11000,days:14,heat:"Klima",
+   title:"Adliyeye üç dakika, bekleme salonlu ofis katı",imgs:[P.g,P.b],tags:["Asansör","Bekleme salonu","Merkezi"],
+   d:"Avukat, mali müşavir ve sigorta acentesi için uygun; adliyeye üç dakika yürüme mesafesinde."}
+];
+/* ============================ KOD ============================ */
+const $ = s => document.querySelector(s);
+const ONLY500 = ["f151678184"];
+const U = (id,w=900) => id.startsWith("f") ? `../assets/img/photo-${id}-${w>500 && !ONLY500.includes(id) ? 960 : 500}.jpg` : `../assets/img/u-${id.replace("photo-","")}-${w>500?960:500}.jpg`;
+const tl = n => n.toLocaleString("tr-TR") + " TL";
+const short = n => n>=1e6 ? (n/1e6).toLocaleString("tr-TR",{maximumFractionDigits:2})+" milyon TL" : tl(n);
+const wa = m => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(m)}`;
+const ico = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
+const town = x => x.town || CONFIG.town;
+const get = (k,d) => { try{ return JSON.parse(localStorage.getItem(k)) ?? d; }catch(e){ return d; } };
+const put = (k,v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+let favs = get("emlakFav", []), onlyFav = false, kind = "all", cur = null, gi = 0;
+
+$("#logo").textContent = CONFIG.name;
+$("#sCount").textContent = LISTINGS.length;
+$("#sellBtn").href = $("#ctaWa").href = wa("Merhaba, mülkümü satmak / kiraya vermek istiyorum. Ücretsiz değerleme rica ediyorum.");
+$("#ctaTel").href = "tel:"+CONFIG.phone;
+$("#foot").textContent = `© 2026 ${CONFIG.name}, ${CONFIG.address}. İlanlardaki bilgiler örnektir.`;
+document.title = CONFIG.name + ", satılık ve kiralık ilanlar";
+[...new Set(LISTINGS.map(l=>l.type))].forEach(t => $("#fType").insertAdjacentHTML("beforeend",`<option value="${t}">${t.toLocaleLowerCase("tr")}</option>`));
+[...new Set(LISTINGS.map(l=>l.hood))].sort((a,b)=>a.localeCompare(b,"tr")).forEach(h => $("#fHood").insertAdjacentHTML("beforeend",`<option value="${h}">${h}'de</option>`));
+function maxOpts(){
+  const v = kind==="Kiralık" ? [7500,10000,12500,15000] : kind==="Satılık" ? [2000000,3000000,4000000,5000000] : [];
+  $("#fMax").innerHTML = `<option value="">${v.length?"bütçe sınırı yok":"bütçe için önce satılık / kiralık seçin"}</option>` + v.map(x=>`<option value="${x}">en fazla ${short(x)}</option>`).join("");
+  $("#fMax").disabled = !v.length;
+}
+function filtered(){
+  const ty=$("#fType").value, h=$("#fHood").value, r=$("#fRoom").value, mx=+$("#fMax").value, q=$("#fQ").value.trim().toLocaleLowerCase("tr");
+  let l = LISTINGS.filter(x => (kind==="all"||x.t===kind) && (!ty||x.type===ty) && (!h||x.hood===h) && (!r||x.room===r) && (!mx||x.price<=mx)
+    && (!q || (x.title+" "+x.d+" "+x.tags.join(" ")+" "+x.hood).toLocaleLowerCase("tr").includes(q)) && (!onlyFav||favs.includes(x.id)));
+  const s = $("#sort").value;
+  l.sort((a,b)=> s==="pa"?a.price-b.price : s==="pd"?b.price-a.price : s==="m2"?b.m2-a.m2 : a.days-b.days);
+  return l;
+}
+const ago = d => d===1 ? "Bugün" : d===2 ? "Dün" : d+" gün önce";
+function render(){
+  const l = filtered();
+  $("#resT").innerHTML = (onlyFav?"Favorileriniz":"İlanlar") + `<small class="tnum">${l.length} ilan, en yenisi üstte</small>`;
+  if($("#sort").value!=="new") $("#resT small").textContent = `${l.length} ilan`;
+  $("#favN").textContent = favs.length;
+  $("#grid").innerHTML = l.length ? l.map(x=>`
+    <article class="card" data-id="${x.id}" tabindex="0">
+      <div class="ph"><img loading="lazy" src="${U(x.imgs[0],700)}" alt="${x.title}">
+        <div class="kind"><span class="${x.t==="Satılık"?"s":"k"}">${x.t}</span><span>${x.type}</span>${x.days<=2?'<span class="n">Yeni</span>':""}</div>
+        <button class="favb ${favs.includes(x.id)?"on":""}" data-fav="${x.id}" aria-label="Favorilere ekle" aria-pressed="${favs.includes(x.id)}">${ico("i-heart")}</button>
+        <span class="cnt tnum">${ico("i-cam")}${x.imgs.length}</span></div>
+      <div class="pr tnum">${tl(x.price)}${x.t==="Kiralık"?"<small>aylık</small>":""}</div><h3>${x.title}</h3>
+      <div class="specs tnum"><span><b>${x.m2} m²</b></span>${x.room!=="-"?`<span>${x.room}</span>`:""}<span>${x.hood}, ${town(x)}</span><span>${ago(x.days)}</span></div>
+    </article>`).join("")
+    : `<div class="none">${onlyFav?"Henüz favori ilanınız yok. Beğendiğiniz ilanın kalbine dokunun.":"Bu arayışa uyan ilan yok. Bir şartı gevşetmeyi deneyin."}<br><button id="reset">Aramayı sıfırla</button></div>`;
+}
+function openDet(id){
+  cur = LISTINGS.find(x=>x.id==id); gi = 0;
+  const x = cur, sat = x.t==="Satılık";
+  const msg = `Merhaba, #${x.id} numaralı ilanınızla ilgileniyorum:\n${x.title}\n${tl(x.price)}, ${x.hood}\nGörmek için uygun bir zaman var mı?`;
+  $("#det").innerHTML = `<button class="x" data-close aria-label="Kapat">${ico("i-x")}</button>
+    <div class="gal"><img id="gImg" src="${U(x.imgs[0],1400)}" alt="${x.title}">${x.imgs.length>1?`<button class="nav prev" data-g="-1" aria-label="Önceki fotoğraf">${ico("i-l")}</button><button class="nav next" data-g="1" aria-label="Sonraki fotoğraf">${ico("i-r")}</button>`:""}</div>
+    <div class="thumbs">${x.imgs.map((im,i)=>`<img src="${U(im,200)}" data-ti="${i}" class="${i?"":"on"}" alt="">`).join("")}</div>
+    <div class="dbody"><div>
+      <div class="kind"><span class="${sat?"s":"k"}">${x.t}</span><span style="background:#f1f1ed">${x.type}</span></div>
+      <h2>${x.title}</h2><div class="pr tnum">${tl(x.price)}${sat?"":" <small>aylık</small>"}</div>
+      <div class="where">${x.hood}, ${town(x)} / Mardin</div>
+      <div class="tbl tnum"><div><span>İlan no</span>${x.id}</div><div><span>İlan tarihi</span>${ago(x.days)}</div><div><span>Alan</span>${x.m2} m²</div><div><span>Oda</span>${x.room}</div>
+        <div><span>Kat</span>${x.floor}</div><div><span>Bina yaşı</span>${x.age||"Sıfır"}</div><div><span>Isınma</span>${x.heat}</div><div><span>m² fiyatı</span>${tl(Math.round(x.price/x.m2))}</div></div>
+      <p>${x.d}</p><div class="tags">${x.tags.map(t=>`<span>${ico("i-check")}${t}</span>`).join("")}</div>
+    </div><aside><div class="agent">
+      <div class="who"><div class="av">${CONFIG.agent[0]}</div><div><b>${CONFIG.agent}</b><small>${CONFIG.agentRole}</small></div></div>
+      <a class="a wa" target="_blank" rel="noopener" href="${wa(msg)}">${ico("i-wa")}WhatsApp'tan yazın</a>
+      <a class="a tel" href="tel:${CONFIG.phone}">${ico("i-phone")}Arayın</a>
+      <button class="a sh" data-share>${ico("i-share")}İlanı paylaşın</button>
+      ${sat?`<div class="calc"><h4>Kredi hesabı</h4>
+        <label for="dp">Peşinat <b class="tnum" id="dpV"></b></label><input type="range" id="dp" min="10" max="70" step="5" value="30">
+        <label for="tm">Vade <b class="tnum" id="tmV"></b></label><input type="range" id="tm" min="60" max="120" step="12" value="120">
+        <div class="res"><span>Aylık taksit</span><b class="tnum" id="inst"></b></div><small>Aylık %2,79 faizle yaklaşık hesaptır. Kesin rakamı bankanız verir.</small></div>`:""}
+      <div class="checked">${ico("i-check")}<span>Bu ilanı yerinde gördük, tapusunu kontrol ettik.</span></div>
+    </div></aside></div>`;
+  $("#ov").classList.add("open"); document.body.style.overflow="hidden";
+  if(sat) loan();
+  history.replaceState(null,"","#ilan-"+x.id);
+}
+function loan(){
+  const dp = +$("#dp").value, n = +$("#tm").value, r = .0279, P0 = cur.price*(1-dp/100);
+  const m = P0*r/(1-Math.pow(1+r,-n));
+  $("#dpV").textContent = `%${dp} (${short(cur.price*dp/100)})`; $("#tmV").textContent = n+" ay"; $("#inst").textContent = tl(Math.round(m));
+}
+function closeDet(){ $("#ov").classList.remove("open"); document.body.style.overflow=""; history.replaceState(null,"",location.pathname+location.search); }
+function gal(i){ gi = (i+cur.imgs.length)%cur.imgs.length; $("#gImg").src = U(cur.imgs[gi],1400); document.querySelectorAll(".thumbs img").forEach((t,k)=>t.classList.toggle("on",k===gi)); }
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
+
+document.addEventListener("click", async e => {
+  const f = e.target.closest("[data-fav]");
+  if(f){ e.stopPropagation(); const id=+f.dataset.fav; favs = favs.includes(id)?favs.filter(x=>x!==id):[...favs,id]; put("emlakFav",favs); render(); toast(favs.includes(id)?"Favorilere eklendi":"Favorilerden çıkarıldı"); return; }
+  if(e.target.closest("[data-close]") || e.target.id==="ov") return closeDet();
+  const g = e.target.closest("[data-g]"); if(g) return gal(gi + +g.dataset.g);
+  const ti = e.target.closest("[data-ti]"); if(ti) return gal(+ti.dataset.ti);
+  if(e.target.closest("[data-share]")){
+    const url = location.href, title = cur.title;
+    try{ if(navigator.share){ await navigator.share({title,url}); } else { await navigator.clipboard.writeText(url); toast("İlan linki kopyalandı"); } }catch(_){}
+    return;
+  }
+  if(e.target.id==="reset"){ kind="all"; onlyFav=false; $("#fKind").value="all"; ["#fType","#fHood","#fRoom","#fQ"].forEach(s=>$(s).value=""); $("#favBtn").classList.remove("on"); maxOpts(); render(); return; }
+  const c = e.target.closest(".card"); if(c) openDet(c.dataset.id);
+});
+document.addEventListener("keydown", e => { const c = e.target.closest && e.target.closest(".card"); if(c && e.key==="Enter") openDet(c.dataset.id); });
+document.addEventListener("input", e => { if(e.target.id==="dp"||e.target.id==="tm") loan(); });
+$("#fKind").addEventListener("change", e => { kind = e.target.value; maxOpts(); render(); });
+["#fType","#fHood","#fRoom","#fMax","#sort"].forEach(s => $(s).addEventListener("change", render));
+$("#fQ").addEventListener("input", render);
+$("#favBtn").onclick = () => { onlyFav = !onlyFav; $("#favBtn").classList.toggle("on", onlyFav); render(); if(onlyFav) document.querySelector(".bar").scrollIntoView({behavior:"smooth"}); };
+document.addEventListener("keydown", e => { if(!$("#ov").classList.contains("open")) return; if(e.key==="Escape") closeDet(); if(e.key==="ArrowRight") gal(gi+1); if(e.key==="ArrowLeft") gal(gi-1); });
+maxOpts(); render();
+const m = location.hash.match(/ilan-(\d+)/); if(m && LISTINGS.some(x=>x.id==m[1])) openDet(m[1]);
+</script>
+</body>
+</html>
