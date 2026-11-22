@@ -30,7 +30,8 @@
 html{-webkit-text-size-adjust:100%}
 body{font-family:"Schibsted Grotesk",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
 ::selection{background:var(--wheat);color:var(--ink)}
-:focus-visible{outline:2px solid var(--wheat);outline-offset:2px;border-radius:3px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:3px}
+.hero :focus-visible,footer :focus-visible,header :focus-visible,.sell :focus-visible{outline-color:var(--wheat)}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 img{display:block;max-width:100%}
@@ -41,14 +42,15 @@ svg.i{width:18px;height:18px;flex:none}
 header{position:absolute;inset:0 0 auto;z-index:5;color:#fff}
 header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-bottom:18px}
 .logo{font-weight:800;font-size:21px;letter-spacing:-.02em;color:inherit;text-decoration:none;margin-inline-end:auto}
-.hbtn{display:inline-flex;align-items:center;gap:7px;border:0;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:9px 15px;font-weight:600;font-size:14.5px;text-decoration:none}
+.hbtn{display:inline-flex;align-items:center;min-height:44px;gap:7px;border:0;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:9px 15px;font-weight:600;font-size:14.5px;text-decoration:none}
 .hbtn.on{background:#fff;color:var(--ink)}
 .hbtn.p{background:var(--wheat);color:var(--ink)}
 .fav-n{opacity:.8}
 @media(max-width:560px){.hbtn .t{display:none}}
+@media(max-width:360px){.logo{font-size:18px}header .wrap{gap:6px}}
 
 /* hero: the plain itself, with the search written as a sentence */
-.hero{position:relative;min-height:min(78vh,720px);display:flex;align-items:flex-end;color:#fff;background:#6b5a3a}
+.hero{position:relative;min-height:min(78vh,720px);padding-top:88px;display:flex;align-items:flex-end;color:#fff;background:#6b5a3a}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,17,19,.45) 0%,rgba(15,17,19,0) 30%,rgba(15,17,19,.15) 55%,rgba(15,17,19,.7) 100%)}
 .hero .wrap{position:relative;z-index:1;width:100%;padding-bottom:40px}
@@ -61,6 +63,7 @@ header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-b
 .ask input{background-image:none;padding:0 2px;cursor:text;width:12ch;font-weight:600}
 .ask input::placeholder{color:#b3b3ab;font-weight:500}
 .ask select:focus,.ask input:focus{outline:0;background-color:var(--wheat-2)}
+.ask select:focus-visible,.ask input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .ask .meta{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;margin-top:10px;padding-top:12px;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.5;color:var(--ink-2);font-weight:400}
 .ask .meta b{color:var(--ink)}
 @media(max-width:600px){.ask{padding:16px 18px;line-height:2}}
@@ -110,7 +113,7 @@ header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-b
 @media(max-width:820px){.sell .wrap{grid-template-columns:1fr}}
 footer{background:var(--ink);color:#8d959b;font-size:13px;border-top:1px solid #2a3035}
 footer .wrap{padding-top:20px;padding-bottom:28px;display:grid;gap:6px}
-footer .credit{font-size:11.5px;color:#6d757b}
+footer .credit{font-size:12px;color:#a3aaaf}
 
 /* detail */
 .ov{position:fixed;inset:0;background:rgba(12,14,16,.6);z-index:30;display:flex;justify-content:center;align-items:flex-start;overflow:auto;padding:28px 16px;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -168,7 +171,7 @@ footer .credit{font-size:11.5px;color:#6d757b}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body>
+<body id="top">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
@@ -183,13 +186,13 @@ footer .credit{font-size:11.5px;color:#6d757b}
 </svg>
 
 <header><div class="wrap">
-  <a class="logo" href="#" id="logo"></a>
+  <a class="logo" href="#top" id="logo"></a>
   <button class="hbtn" id="favBtn"><svg class="i"><use href="#i-heart"/></svg><span class="t">Favoriler</span><span class="fav-n" id="favN">0</span></button>
   <a class="hbtn p" id="sellBtn" target="_blank" rel="noopener"><svg class="i"><use href="#i-plus"/></svg><span class="t">Mülkünü ver</span></a>
 </div></header>
 
 <section class="hero">
-  <img src="../assets/img/photo-f45913250-960.jpg" srcset="../assets/img/photo-f45913250-500.jpg 500w, ../assets/img/photo-f45913250-960.jpg 960w" sizes="100vw" alt="Kızıltepe ovası ve tepe" fetchpriority="high">
+  <img src="../assets/img/photo-f45913250-960.jpg" srcset="../assets/img/photo-f45913250-500.jpg 500w, ../assets/img/photo-f45913250-960.jpg 960w, ../assets/img/photo-f45913250-1920.jpg 1920w" sizes="max(100vw, 150vh)" alt="Kızıltepe ovası ve tepe" fetchpriority="high">
   <div class="wrap">
     <h1>Kızıltepe'de ev, dükkân, arsa.</h1>
     <div class="ask">
