@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Fiyat ve Hizmet Broşürü</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* ================= RENKLER (Mardin taşı, bazalt, kiremit) ================= */
+:root{
+  --paper:#ffffff; --tint:#f3f3f1; --stone:#c39255; --stone-d:#86602c;
+  --ink:#1c1a17; --ink2:#45413b; --muted:#6c675f; --line:#e1dfda;
+  --terra:#9c3b25; --basalt:#1e1c19; --on-dark:#ece7de; --on-dark-2:#b8b0a3; --green:#1f6b47;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#cfcdc8}
+body{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-optical-sizing:auto;color:var(--ink);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;font-variant-numeric:tabular-nums}
+.page{width:210mm;height:297mm;margin:0 auto;background:var(--paper);position:relative;overflow:hidden;
+  page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto;break-after:auto}
+@media screen{.page{margin:10mm auto;box-shadow:0 6px 30px rgba(0,0,0,.18)}}
+
+/* Artuklu yıldız deseni */
+.pattern{position:absolute;inset:0;opacity:.07;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23231a12' stroke-width='1'%3E%3Cpath d='M28 6l6 16 16 6-16 6-6 16-6-16-16-6 16-6z'/%3E%3Crect x='18' y='18' width='20' height='20' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E");}
+
+/* ---------- SAYFA 1 ---------- */
+.hero{background:var(--basalt);color:var(--on-dark);padding:12mm 14mm 13mm;position:relative;overflow:hidden}
+.hero .pattern{opacity:.08;filter:invert(1)}
+.brand{display:flex;align-items:center;gap:10px;position:relative}
+.logo{width:34px;height:34px}
+.brand b{font-size:19px;font-weight:700;font-stretch:85%}
+.brand small{display:block;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--stone);font-weight:600}
+.hero h1{font-weight:800;font-stretch:78%;font-size:38px;line-height:1;margin-top:8mm;max-width:150mm;position:relative}
+.hero h1 em{font-style:normal;color:var(--stone)}
+.hero p.lead{font-size:12.5px;line-height:1.6;color:var(--on-dark-2);margin-top:4.5mm;max-width:140mm;position:relative}
+.arch{position:absolute;right:-10mm;bottom:-6mm;width:78mm;opacity:.14}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;padding:0 14mm;margin-top:-7mm;position:relative;z-index:2}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:3.6mm 4.5mm;box-shadow:0 2px 10px rgba(28,26,23,.07)}
+.stat b{font-size:21px;font-weight:800;font-stretch:80%;color:var(--terra);display:block;line-height:1}
+.stat span{font-size:10.2px;color:var(--muted);line-height:1.4;display:block;margin-top:1.4mm}
+
+.sec{padding:0 14mm}
+.sec-h{display:flex;align-items:baseline;gap:10px;margin:7.5mm 0 3.6mm}
+.p2 .sec-h{margin:8mm 0 4mm}
+.sec-h h2{font-size:22px;font-weight:800;font-stretch:80%;white-space:nowrap}
+.sec-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.sec-h .tag{order:2;font-size:8.8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone-d);font-weight:700;white-space:nowrap}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4.6mm 5mm;display:flex;flex-direction:column;position:relative}
+.card.feat{background:var(--basalt);color:var(--on-dark);border-color:var(--basalt)}
+.card .top{display:flex;gap:3mm;align-items:center}
+.ic{width:30px;height:30px;border-radius:8px;background:var(--tint);display:grid;place-items:center;flex-shrink:0}
+.feat .ic{background:rgba(195,146,85,.2)}
+.ic svg{width:17px;height:17px;stroke:var(--stone-d);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat .ic svg{stroke:var(--stone)}
+.card h3{font-size:14px;font-weight:700;line-height:1.2}
+.card .for{font-size:10px;color:var(--muted);margin-top:1px}
+.feat .for{color:var(--on-dark-2)}
+.card ul{list-style:none;margin:3.2mm 0 3.6mm;flex:1}
+.card li{font-size:10.8px;line-height:1.42;padding-left:13px;position:relative;margin-bottom:1.1mm;color:var(--ink2)}
+.feat li{color:#ddd6ca}
+.card li::before{content:"";position:absolute;left:0;top:5px;width:6px;height:6px;border-radius:1.5px;background:var(--stone);transform:rotate(45deg)}
+.price{border-top:1px dashed var(--line);padding-top:3mm;display:flex;align-items:flex-end;justify-content:space-between;gap:6px}
+.feat .price{border-color:rgba(255,255,255,.18)}
+.price .main{font-size:23px;font-weight:800;font-stretch:80%;line-height:1;white-space:nowrap}
+.price .main small{font-size:9.5px;font-weight:500;font-stretch:100%;color:var(--muted);margin-left:2px}
+.price .was{display:block;font-size:9.5px;font-weight:500;font-stretch:100%;color:var(--on-dark-2);margin-bottom:1.2mm}
+.feat .price .main small{color:var(--on-dark-2)}
+.price .sub{font-size:9.8px;color:var(--muted);text-align:right;line-height:1.35}
+.price .sub b{color:var(--terra);font-size:12px}
+.feat .price .sub{color:var(--on-dark-2)}.feat .price .sub b{color:var(--stone)}
+.ribbon{position:absolute;top:-2.5mm;right:5mm;background:var(--terra);color:#fff;font-size:8.4px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;padding:1.3mm 2.6mm;border-radius:4px}
+
+.why{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm 6mm}
+.why div{font-size:10.8px;line-height:1.5;color:var(--ink2);padding-left:16px;position:relative}
+.why div b{color:var(--ink)}
+.why div::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:700}
+
+.foot{position:absolute;left:14mm;right:14mm;bottom:6mm;display:flex;justify-content:space-between;font-size:8.4px;color:var(--muted)}
+
+/* ---------- SAYFA 2 ---------- */
+.card.slim ul{margin:3.2mm 0 3.6mm}
+.card.slim li{font-size:10.8px}
+
+.extras{display:grid;grid-template-columns:1fr 1fr;gap:0 8mm}
+.extras div{display:flex;justify-content:space-between;align-items:baseline;gap:4mm;padding:2.5mm 0;border-bottom:1px solid var(--line);font-size:10.8px;color:var(--ink2)}
+.extras div b{font-size:11px;color:var(--ink);white-space:nowrap}
+.extras div b small{font-size:8.8px;font-weight:500;color:var(--muted)}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+.step{background:var(--tint);border-radius:10px;padding:4.4mm 4.4mm}
+.step .n{font-size:19px;font-weight:800;font-stretch:80%;color:var(--stone-d);line-height:1}
+.step h4{font-size:11px;margin:1.8mm 0 .8mm}
+.step p{font-size:10px;color:var(--muted);line-height:1.42}
+
+
+.page.p2{display:flex;flex-direction:column}
+.contact{margin:auto 14mm 14mm;background:var(--basalt);color:var(--on-dark);border-radius:14px;
+  padding:5.5mm 6mm 5.5mm 7mm;display:flex;gap:5mm;align-items:center}
+.contact .t{flex:1}
+.contact h3{font-size:21px;font-weight:800;font-stretch:80%}
+.contact p{font-size:9.8px;color:var(--on-dark-2);margin-top:1.4mm;line-height:1.5}
+.contact .rows{display:grid;grid-template-columns:auto 1fr;gap:1.4mm 4mm;margin-top:3.2mm;font-size:11px}
+.contact .rows span{color:var(--stone);font-size:8.8px;letter-spacing:1.2px;text-transform:uppercase;padding-top:2px;font-weight:600}
+.qr{background:#fff;padding:2.2mm;border-radius:8px;text-align:center;color:var(--ink)}
+.qr div{width:24mm;height:24mm}
+.qr img,.qr canvas{width:24mm!important;height:24mm!important}
+.qr small{display:block;font-size:7.8px;color:var(--ink2);margin-top:1.4mm;font-weight:700}
+.note{position:absolute;left:14mm;right:14mm;bottom:6mm;font-size:8.2px;color:var(--muted);text-align:center;line-height:1.45}
+</style>
+</head>
+<body>
+
+<!-- ======================= SAYFA 1 ======================= -->
+<section class="page">
+  <div class="hero">
+    <div class="pattern"></div>
+    <svg class="arch" viewBox="0 0 200 160" fill="none" stroke="#ece7de" stroke-width="3">
+      <path d="M10 160V70a90 60 0 0 1 180 0v90"/><path d="M40 160V80a60 40 0 0 1 120 0v80"/>
+      <path d="M70 160V95a30 22 0 0 1 60 0v65"/><path d="M0 160h200"/>
+    </svg>
+    <div class="brand"><small data-k="tagline"></small></div>
+    <h1>İşletmeniz telefonda yoksa,<br>müşteri <em>komşunuza</em> gidiyor.</h1>
+    <p class="lead">Mardin'e gelen misafir nerede yiyeceğini, kalacağını, ne alacağını telefonundan arıyor. Biz Mardin'deyiz: işletmenize gelir, kurar, kullanmayı öğretir ve sonrasında da yanınızda oluruz.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>4 milyon</b><span>2025'te Mardin'e gelen ziyaretçi; 1 milyonu konaklamalı</span></div>
+    <div class="stat"><b>TR · EN · AR</b><span>Türk, yabancı ve Arap misafire kendi dilinde, Arapçada sağdan sola</span></div>
+    <div class="stat"><b>Yerinde</b><span>Kurulum, fotoğraf çekimi ve destek işletmenizde</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>Kafe &amp; Restoran</h2><span class="tag">En çok tercih edilen</span></div>
+    <div class="grid">
+      <div class="card feat">
+        <span class="ribbon">Önerilen</span>
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11h18M5 11a7 7 0 0 1 14 0M4 15h16l-1.5 4h-13z"/></svg></div>
+          <div><h3>Kafe &amp; Restoran Paketi</h3><div class="for">Menü, Google ve fotoğraf, hepsi bir arada</div></div></div>
+        <ul>
+          <li>3 dilli QR menü (Türkçe, İngilizce, Arapça)</li>
+          <li>Google Haritalar profili kurulumu ve düzeni</li>
+          <li>20 profesyonel ürün ve mekân fotoğrafı</li>
+          <li>10 masa QR standı baskısı dahil</li>
+        </ul>
+        <div class="price"><div class="main"><span class="was">Ayrı ayrı: <s data-p="kafeAyri"></s></span><span data-p="kafe"></span></div><div class="sub">+ aylık <b data-p="kafeAy"></b><br>sınırsız menü güncelleme</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></div>
+          <div><h3>Dijital QR Menü</h3><div class="for">Kafe, restoran, kahvaltı salonu, pastane</div></div></div>
+        <ul>
+          <li>Telefona özel hızlı tasarım, 3 dil</li>
+          <li>Fiyat ve ürün değişikliği aynı gün</li>
+          <li>Garson çağırma, Wi-Fi ve Google yorum butonu</li>
+          <li>Alerjen ve içerik bilgisi alanı</li>
+        </ul>
+        <div class="price"><div class="main" data-p="menu"></div><div class="sub">kurulum<br>+ aylık <b data-p="menuAy"></b></div></div>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>Her İşletme İçin</h2><span class="tag">Esnafın ilk adımı</span></div>
+    <div class="grid">
+      <div class="card">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+          <div><h3>Google'da Görünür Olun</h3><div class="for">Haritada çıkmayan dükkân, misafire görünmez</div></div></div>
+        <ul>
+          <li>Google Haritalar işletme profili kurulumu ve doğrulaması</li>
+          <li>Doğru adres, çalışma saati, telefon, 10 fotoğraf</li>
+          <li>Yorumlara cevap verme ve yorum toplama eğitimi</li>
+        </ul>
+        <div class="price"><div class="main" data-p="google"></div><div class="sub">tek seferlik<br>aylık ücret yok</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></div>
+          <div><h3>Online Randevu Sistemi</h3><div class="for">Berber, kuaför, güzellik salonu, klinik</div></div></div>
+        <ul>
+          <li>Müşteri hizmet, usta ve saati telefondan seçer</li>
+          <li>Esnaf paneli: günün randevuları ve beklenen ciro</li>
+          <li>Randevu talebi ve onayı WhatsApp'tan, telefon trafiği azalır</li>
+        </ul>
+        <div class="price"><div class="main" data-p="randevu"></div><div class="sub">kurulum<br>+ aylık <b data-p="randevuAy"></b></div></div>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>Neden Biz?</h2></div>
+    <div class="why">
+      <div><b>Mardin'deyiz.</b> Bir sorun olursa telefonda bekletmeyiz, gelir yüz yüze çözeriz.</div>
+      <div><b>Önce görün, sonra karar verin.</b> İşletmenizin adıyla örneği ücretsiz hazırlarız.</div>
+      <div><b>Gizli ücret yok.</b> Teklifte ne yazıyorsa o; aylık ücret 12 ay boyunca sabit.</div>
+      <div><b>Her şey sizin.</b> Alan adı, fotoğraflar ve içerik işletmeniz adına; ayrılırsanız sizde kalır.</div>
+    </div>
+  </div>
+  <div class="foot"><span data-k="tagline"></span><span>Sayfa 1 / 2</span></div>
+</section>
+
+<!-- ======================= SAYFA 2 ======================= -->
+<section class="page p2">
+  <div class="sec">
+    <div class="sec-h" style="margin-top:11mm"><h2>Web Sitesi &amp; Online Satış</h2><span class="tag">1 yıl barındırma ve bakım dahil</span></div>
+    <div class="grid">
+      <div class="card slim">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6M9 11h.01M15 11h.01"/></svg></div>
+          <div><h3>Otel &amp; Konak Web Sitesi</h3><div class="for">Butik otel, taş konak, pansiyon</div></div></div>
+        <ul>
+          <li>3 dilli, oda galerili, telefona uyumlu site</li>
+          <li>Tarih ve kişi seçilip WhatsApp'tan doğrudan rezervasyon</li>
+          <li>Booking komisyonuna daha az bağımlılık</li>
+        </ul>
+        <div class="price"><div class="main" data-p="otel"></div><div class="sub">2. yıldan itibaren<br>yıllık <b data-p="otelYil"></b></div></div>
+      </div>
+      <div class="card slim">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2l-3 4v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <div><h3>Ürün Kataloğu + WhatsApp Sipariş</h3><div class="for">Sabun, badem şekeri, kahve, telkari, hediyelik</div></div></div>
+        <ul>
+          <li>Ürünler fotoğraf ve fiyatıyla tek linkte</li>
+          <li>Müşteri sepeti doldurur, sipariş WhatsApp'ınıza düşer</li>
+          <li>Türkiye geneline kargo ile satış</li>
+        </ul>
+        <div class="price"><div class="main" data-p="katalog"></div><div class="sub">2. yıldan itibaren<br>yıllık <b data-p="katalogYil"></b></div></div>
+      </div>
+      <div class="card slim">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 9.5V20h14V9.5M10 20v-5h4v5"/></svg></div>
+          <div><h3>Emlak İlan Sitesi</h3><div class="for">Emlak ofisleri, müteahhitler</div></div></div>
+        <ul>
+          <li>Kendi markanızla ilan sitesi, ilan başına ücret yok</li>
+          <li>Satılık/kiralık, mahalle, oda ve fiyat filtresi</li>
+          <li>İlanları kendiniz girebileceğiniz kolay panel</li>
+        </ul>
+        <div class="price"><div class="main" data-p="emlak"></div><div class="sub">kurulum<br>+ aylık <b data-p="emlakAy"></b></div></div>
+      </div>
+      <div class="card slim">
+        <div class="top"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h12l2-8H6.2"/></svg></div>
+          <div><h3>E-Ticaret Sitesi</h3><div class="for">İnternetten kartla satış yapmak isteyenler</div></div></div>
+        <ul>
+          <li>Kredi kartıyla online ödeme altyapısı</li>
+          <li>Stok, sipariş ve kargo takibi paneli</li>
+          <li>KVKK ve mesafeli satış sözleşmesi sayfaları</li>
+        </ul>
+        <div class="price"><div class="main" data-p="eticaret"></div><div class="sub">ürün sayısı ve<br>entegrasyona göre</div></div>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>Ek Hizmetler</h2><span class="tag">Her pakete eklenebilir</span></div>
+    <div class="extras">
+      <div>Profesyonel fotoğraf çekimi, 20 kare <b data-p="foto"></b></div>
+      <div>Ek dil (Almanca, Farsça vb.) <b data-p="ekdil"></b></div>
+      <div>Instagram profil düzeni ve öne çıkanlar <b data-p="instagram"></b></div>
+      <div>Ek masa QR standı <b><span data-p="stand"></span> <small>/ adet</small></b></div>
+      <div>Logo ve kartvizit tasarımı <b data-p="logo"></b></div>
+      <div>Dokununca Google yoruma götüren kart <b><span data-p="nfc"></span> <small>/ adet</small></b></div>
+    </div>
+
+    <div class="sec-h"><h2>Nasıl Çalışıyoruz?</h2><span class="tag">7–14 günde yayında</span></div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h4>Ücretsiz ziyaret</h4><p>İşletmenize gelir, ihtiyacınızı dinler, örnekleri telefonunuzda gösteririz.</p></div>
+      <div class="step"><div class="n">02</div><h4>Yazılı teklif</h4><p>Neyin dahil olduğu tek tek yazılı. Sonradan çıkan ücret yok.</p></div>
+      <div class="step"><div class="n">03</div><h4>Kurulum &amp; çekim</h4><p>Fotoğraf, içerik ve kurulum işletmenizde, işinizi aksatmadan.</p></div>
+      <div class="step"><div class="n">04</div><h4>Teslim &amp; destek</h4><p>Kullanımı öğretiriz. Sonrasında bir telefon ya da mesaj uzağındayız.</p></div>
+    </div>
+  </div>
+
+  <div class="contact">
+    <div class="t">
+      <h3>Önce örneği görün, sonra karar verin</h3>
+      <p>Sağdaki ilk kodu okutun, beş çalışan örneği telefonunuzda gezin. İşletmenizin adıyla hazırlanmışını görmek için WhatsApp'tan yazın.</p>
+      <div class="rows">
+        <span>Telefon</span><b data-k="telefon"></b>
+        <span>Instagram</span><b data-k="instagramHesap"></b>
+        <span>Bölge</span><b data-k="bolge"></b>
+      </div>
+    </div>
+    <div class="qr"><div id="qrDemo"></div><small>Örnekleri gezin</small></div>
+    <div class="qr"><div id="qrWa"></div><small>WhatsApp'tan yazın</small></div>
+  </div>
+  <div class="note" data-k="not"></div>
+</section>
+
+<script>
+/* ============ BURAYI DÜZENLE: marka, iletişim, fiyatlar ============ */
+const C = {
+  tagline:"Mardin esnafı için dijital hizmetler",
+  telefon:"0535 282 22 72",
+  whatsapp:"905352822272",            // WhatsApp QR kodu bu numarayı açar
+  demoUrl:"https://mehmetcaka280.github.io/mardin-esnaf-demolar/",
+  instagramHesap:"",                  // boş bırakılırsa broşürde gösterilmez
+  bolge:"Mardin Merkez · Artuklu · Kızıltepe · Midyat",
+  not:"Fiyatlar Kasım 2026 itibarıyla geçerlidir. Alan adı maliyet fiyatına yansıtılır. Aylık ve yıllık ücretler sözleşme süresince sabittir, yenilemede güncellenebilir.",
+  fiyat:{ kafe:9000, kafeAyri:12000, kafeAy:500,
+          menu:3500, menuAy:400,
+          google:2500,
+          randevu:3000, randevuAy:600,
+          otel:22000, otelYil:5000,
+          katalog:11000, katalogYil:3000,
+          emlak:16000, emlakAy:750,
+          eticaret:35000,
+          foto:4500, ekdil:1500, instagram:2500, stand:150, logo:3500, nfc:450 },
+  "ile başlayan":["otel","eticaret"]  // fiyatın yanına "'den başlayan" yazılacaklar
+};
+/* =================================================================== */
+const tl = n => n.toLocaleString("tr-TR") + " ₺";
+document.querySelectorAll("[data-k]").forEach(e => e.textContent = C[e.dataset.k]);
+document.querySelectorAll(".rows b[data-k]").forEach(b => { if(!C[b.dataset.k]){ b.previousElementSibling.remove(); b.remove(); } });
+document.querySelectorAll("[data-p]").forEach(e => {
+  const k = e.dataset.p, v = C.fiyat[k];
+  e.innerHTML = tl(v) + (C["ile başlayan"].includes(k) ? "<small>'den başlayan</small>" : "");
+});
+try{
+  new QRCode(document.getElementById("qrDemo"),{text:C.demoUrl,width:200,height:200,correctLevel:QRCode.CorrectLevel.M});
+  new QRCode(document.getElementById("qrWa"),{text:"https://wa.me/"+C.whatsapp,width:200,height:200,correctLevel:QRCode.CorrectLevel.M});
+}catch(e){}
+</script>
+</body>
+</html>
