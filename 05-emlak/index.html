@@ -21,7 +21,7 @@
   --ink-2:#5b6267;
   --rule:#e3e3dd;
   --wheat:#c8962b;     /* Kızıltepe ovası */
-  --wheat-2:#f3e7c9;
+  --wheat-2:#ecebe4;
   --soil:#7a4b22;
   --ease:cubic-bezier(.2,.8,.2,1);
 }
@@ -46,7 +46,7 @@ header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-b
 .hbtn.on{background:#fff;color:var(--ink)}
 .hbtn.p{background:var(--wheat);color:var(--ink)}
 .fav-n{opacity:.8}
-@media(max-width:560px){.hbtn .t{display:none}}
+@media(max-width:560px){.hbtn .t{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
 @media(max-width:360px){.logo{font-size:18px}header .wrap{gap:6px}}
 
 /* hero: the plain itself, with the search written as a sentence */
@@ -60,9 +60,9 @@ header .wrap{display:flex;align-items:center;gap:10px;padding-top:18px;padding-b
 .ask{margin-top:28px;background:var(--white);color:var(--ink);border-radius:14px;padding:20px 24px;font-size:clamp(19px,2.1vw,26px);font-weight:500;line-height:1.9;letter-spacing:-.01em;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
 .ask select,.ask input{appearance:none;-webkit-appearance:none;border:0;border-bottom:2px solid var(--wheat);background:transparent;font-weight:700;padding:0 22px 0 2px;border-radius:0;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8962b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:16px;max-width:100%}
 .ask select:disabled{opacity:.4;cursor:not-allowed}
-.ask input{background-image:none;padding:0 2px;cursor:text;width:12ch;font-weight:600}
-.ask input::placeholder{color:#b3b3ab;font-weight:500}
-.ask select:focus,.ask input:focus{outline:0;background-color:var(--wheat-2)}
+.ask input{background-image:none;padding:3px 2px;min-height:30px;cursor:text;width:12ch;font-weight:600}
+.ask input::placeholder{color:#73736b;font-weight:500}
+.ask select:focus,.ask input:focus{outline:0;background-color:var(--wheat-2);border-bottom-color:var(--ink)}
 .ask select:focus-visible,.ask input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .ask .meta{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;margin-top:10px;padding-top:12px;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.5;color:var(--ink-2);font-weight:400}
 .ask .meta b{color:var(--ink)}
@@ -200,7 +200,7 @@ footer .credit{font-size:12px;color:#a3aaaf}
       <select id="fType" aria-label="Emlak tipi"><option value="">emlak</option></select> arıyorum,
       <select id="fHood" aria-label="Mahalle"><option value="">herhangi bir mahallede</option></select>,
       <select id="fRoom" aria-label="Oda sayısı"><option value="">oda sayısı fark etmez</option><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select>,
-      <select id="fMax" aria-label="En yüksek fiyat"></select>.
+      <span style="white-space:nowrap"><select id="fMax" aria-label="En yüksek fiyat"></select>.</span>
       <div class="meta"><span><b id="sCount" class="tnum">0</b> ilan yayında</span><span><label for="fQ">Özellik ara:</label> <input id="fQ" placeholder="asansör, bahçe"></span></div>
     </div>
   </div>
@@ -293,7 +293,7 @@ document.title = CONFIG.name + ", satılık ve kiralık ilanlar";
 [...new Set(LISTINGS.map(l=>l.hood))].sort((a,b)=>a.localeCompare(b,"tr")).forEach(h => $("#fHood").insertAdjacentHTML("beforeend",`<option value="${h}">${h}'de</option>`));
 function maxOpts(){
   const v = kind==="Kiralık" ? [7500,10000,12500,15000] : kind==="Satılık" ? [2000000,3000000,4000000,5000000] : [];
-  $("#fMax").innerHTML = `<option value="">${v.length?"bütçe sınırı yok":"bütçe için önce satılık / kiralık seçin"}</option>` + v.map(x=>`<option value="${x}">en fazla ${short(x)}</option>`).join("");
+  $("#fMax").innerHTML = `<option value="">${v.length?"bütçe sınırı yok":"bütçe (önce satılık/kiralık)"}</option>` + v.map(x=>`<option value="${x}">en fazla ${short(x)}</option>`).join("");
   $("#fMax").disabled = !v.length;
 }
 function filtered(){

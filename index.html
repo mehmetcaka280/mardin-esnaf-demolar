@@ -6,12 +6,12 @@
 <title>Örnek çalışmalar</title>
 <meta name="description" content="Mardin esnafı için hazırlanmış örnek siteler: QR menü, konak oteli, berber randevusu, yöresel ürün kataloğu, emlak ilanları.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e9e7e1;--paper:#f6f5f1;--ink:#1b1c1a;--ink-2:#4b4d48;--rule:#d3d0c7}
+:root{--bg:#e5e7e9;--paper:#f4f5f6;--ink:#1b1c1e;--ink-2:#4a4d52;--rule:#cdd1d5}
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
-body{font-family:"Instrument Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:17px}
+body{font-family:"Bricolage Grotesque",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:17px}
 img{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
@@ -19,7 +19,7 @@ a{color:inherit}
 .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,36px)}
 
 .top{padding-top:clamp(40px,7vw,88px)}
-.top h1{font-stretch:78%;font-weight:700;font-size:clamp(46px,8.4vw,124px);line-height:.9;letter-spacing:-.03em;max-width:13ch}
+.top h1{font-stretch:78%;font-weight:700;font-size:clamp(46px,8.4vw,124px);line-height:.9;letter-spacing:-.008em;max-width:13ch}
 .top p{max-width:54ch;color:var(--ink-2);margin-top:22px;font-size:clamp(17px,1.5vw,20px)}
 
 /* five phones in a row, the first thing anyone sees */
@@ -41,7 +41,7 @@ a{color:inherit}
 .demo .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:center;padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px)}
 .demo:nth-of-type(even) .wrap{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
 .demo:nth-of-type(even) .txt{order:2}
-.demo h2{font-stretch:78%;font-weight:700;font-size:clamp(38px,4.6vw,64px);line-height:.95;letter-spacing:-.025em}
+.demo h2{font-stretch:78%;font-weight:700;font-size:clamp(38px,4.6vw,64px);line-height:.95;letter-spacing:-.005em}
 .demo .who{margin-top:12px;font-weight:600;color:var(--c-acc)}
 .demo p{margin-top:16px;max-width:46ch;opacity:.86}
 .demo ul{list-style:none;margin-top:22px;border-top:1px solid var(--c-rule)}
@@ -55,14 +55,14 @@ a{color:inherit}
 @media(max-width:860px){.demo .wrap,.demo:nth-of-type(even) .wrap{grid-template-columns:minmax(0,1fr)}.demo:nth-of-type(even) .txt{order:0}}
 
 .d-menu{--c-bg:#22311f;--c-ink:#efe8d8;--c-acc:#e0a35b;--c-on:#22311f;--c-rule:rgba(239,232,216,.18)}
-.d-otel{--c-bg:#ece6da;--c-ink:#1d2433;--c-acc:#2c3f8c;--c-on:#fff;--c-rule:#d2c8b5}
+.d-otel{--c-bg:#e2e6ee;--c-ink:#1d2433;--c-acc:#2c3f8c;--c-on:#fff;--c-rule:#c3cbd9}
 .d-randevu{--c-bg:#cfe5d8;--c-ink:#18211d;--c-acc:#a82a20;--c-on:#fff;--c-rule:#a9cbb8}
-.d-katalog{--c-bg:#e2d0ae;--c-ink:#2a2216;--c-acc:#27468a;--c-on:#fff;--c-rule:#c9b48d}
+.d-katalog{--c-bg:#dfe5cb;--c-ink:#2a2216;--c-acc:#27468a;--c-on:#fff;--c-rule:#bcc69c}
 .d-emlak{--c-bg:#161a1d;--c-ink:#eef0f1;--c-acc:#c8962b;--c-on:#161a1d;--c-rule:rgba(238,240,241,.16)}
 
 .how{background:var(--paper)}
 .how .wrap{padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
-.how h2{font-stretch:78%;font-weight:700;font-size:clamp(34px,4vw,54px);line-height:.98;letter-spacing:-.025em}
+.how h2{font-stretch:78%;font-weight:700;font-size:clamp(34px,4vw,54px);line-height:.98;letter-spacing:-.005em}
 .how ol{list-style:none;counter-reset:s}
 .how li{counter-increment:s;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid var(--rule)}
 .how li::before{content:counter(s);grid-row:span 2;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-weight:600;font-size:15px}
